@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/bookingGym"
+        android:enabled="true"
+        android:icon="@drawable/baseline_sports_24"
+        android:title="Gym"/>
+
+    <item
+        android:id="@+id/bookingClass"
+        android:enabled="true"
+        android:icon="@drawable/round_class"
+        android:title="Class"/>
+
+    <item
+        android:id="@+id/historyActivityMember"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_work_24"
+        android:title="History"/>
+
+    <item
+        android:id="@+id/profileMember"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Profile"/>
+</menu>

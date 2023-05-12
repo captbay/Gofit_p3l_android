@@ -1,0 +1,99 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    namespace 'com.example.gofit_p3l'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.gofit_p3l"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding{
+        enabled = true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+def room_version = "2.4.3"
+def coroutines_version = "1.3.9"
+
+dependencies {
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    implementation 'org.osmdroid:osmdroid-android:6.1.11'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    implementation 'com.itextpdf:itext7-core:7.1.13'
+
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+
+    def lifecycle_version = "2.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    // Unit Testing
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+    // Optional -- Hamcrest library
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    // Optional -- UI testing with Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // Optional -- UI testing with Automator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    // dialog UI
+    implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
+
+}
