@@ -7,6 +7,9 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+
+/app/src/main/java/com/example/gofit_p3l/Api/Api.kt
+
 .DS_Store
 /build
 /captures
