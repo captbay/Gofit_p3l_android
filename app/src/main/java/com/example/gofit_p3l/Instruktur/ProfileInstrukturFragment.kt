@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley
 import com.example.gofit_p3l.Api.Api
 import com.example.gofit_p3l.LoginActivity
 import com.example.gofit_p3l.R
+import com.example.gofit_p3l.UpdatePasswordActivity
 import com.example.gofit_p3l.databinding.FragmentProfileInstrukturBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -79,6 +80,15 @@ class ProfileInstrukturFragment : Fragment() {
                     }
                     .show()
             }
+        }
+
+        binding.btnChangePassword.setOnClickListener {
+            val moveUpdatePassword = Intent(activity, UpdatePasswordActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("key", "instruktur")
+            moveUpdatePassword.putExtra("keyBundle", bundle)
+            startActivity(moveUpdatePassword)
+            activity?.finish()
         }
 
     }

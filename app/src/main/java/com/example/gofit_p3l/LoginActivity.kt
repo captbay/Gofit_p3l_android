@@ -33,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
     private val idPref = "idKey"
     private val usernamePref = "usernameKey"
     private val fullnamePref = "fullnameKey"
+    private val idMemberPref = "idMemberKey"
+    private val idInstrukturPref = "idInstrukturKey"
+    private val idMoPref = "idMoKey"
     private val rolePref= "roleKey"
     private val tokenTypePref = "token_typeKey"
     private val accessTokenPref = "access_tokenKey"
@@ -125,12 +128,14 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString(idPref, user.id.toString())
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, member.name)
+                        editor.putInt(idMemberPref, member.id)
                         editor.putString(accessTokenPref, accessToken)
                         editor.putString(tokenTypePref, tokenType)
                         editor.putString(rolePref, role)
                         editor.apply()
 
                         startActivity(moveHomeMember)
+                        //buat ga balik lagi ke login, kalau dari home balik jadinya selesai app
                         finish()
                     }
                     "instruktur" -> {
@@ -142,6 +147,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString(idPref, user.id.toString())
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, instruktur.name)
+                        editor.putInt(idInstrukturPref, instruktur.id)
                         editor.putString(accessTokenPref, accessToken)
                         editor.putString(tokenTypePref, tokenType)
                         editor.putString(rolePref, role)
@@ -159,6 +165,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString(idPref, user.id.toString())
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, mo.name)
+                        editor.putInt(idMoPref, mo.id)
                         editor.putString(accessTokenPref, accessToken)
                         editor.putString(tokenTypePref, tokenType)
                         editor.putString(rolePref, role)
@@ -206,8 +213,8 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                     }else if(error.networkResponse.statusCode == 404){
-                        binding.layoutUsername.setError("Username Salah")
-                        binding.layoutPassword.setError("Password Salah")
+                        binding.layoutUsername.error = "Username Salah"
+                        binding.layoutPassword.error = "Password Salah"
                         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }else{
                         val errors = JSONObject(responseBody)

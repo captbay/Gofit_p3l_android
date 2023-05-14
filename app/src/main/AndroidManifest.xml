@@ -12,7 +12,6 @@
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="scopedStorage" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -32,6 +31,12 @@
         android:theme="@style/Theme.Gofit_p3l"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".AddInstrukturIzinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdatePasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".HomeMoActivity"
             android:exported="true" />

@@ -42,16 +42,16 @@ class HomeMemberActivity : AppCompatActivity() {
         if(intent.getBundleExtra("keyBundle")!=null){
             binding.layoutFragmentMember.setPadding(0,0,0,0)
             if(bundle?.getString("key","")=="pindahBookingGym"){
-                binding.layoutFragmentMember.setPadding(left,0,right,0)
+                binding.layoutFragmentMember.setPadding(0,0,0,0)
                 navViewMember.selectedItemId = R.id.bookingGym
                 changeFragment(BookingGymFragment())
             }else if(bundle?.getString("key","")=="pindahBookingClass"){
-                binding.layoutFragmentMember.setPadding(left,0,right,0)
+                binding.layoutFragmentMember.setPadding(0,0,0,0)
                 navViewMember.selectedItemId = R.id.bookingClass
                 changeFragment(BookingClassFragment())
             }else {
-                navViewMember.selectedItemId = R.id.bookingClass
-                changeFragment(BookingClassFragment())
+                navViewMember.selectedItemId = R.id.profileMember
+                changeFragment(ProfileMemberFragment())
             }
 
         }else{
@@ -67,7 +67,7 @@ class HomeMemberActivity : AppCompatActivity() {
                 }
                 R.id.bookingGym -> {
                     changeFragment(BookingGymFragment())
-                    binding.layoutFragmentMember.setPadding(left,0,right,0)
+                    binding.layoutFragmentMember.setPadding(0,0,0,0)
                     true
                 }
                 R.id.bookingClass -> {

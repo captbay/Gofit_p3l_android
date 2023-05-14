@@ -58,10 +58,17 @@
     <style name="CustomAlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <!-- Customize the colors as per your preference -->
         <item name="colorSurface">@color/white</item> <!-- Set dialog box color to white -->
-<!--        <item name="colorPrimary">@color/orange</item> &lt;!&ndash; Set positive button color to orange &ndash;&gt;-->
+        <item name="colorPrimary">@color/orange</item> <!-- Set positive button color to orange -->
 <!--        <item name="colorOnPrimary">@color/orange</item> &lt;!&ndash; Set positive button text color to white &ndash;&gt;-->
-<!--        <item name="colorSecondary">@color/red</item> &lt;!&ndash; Set negative button color to red &ndash;&gt;-->
+        <item name="colorSecondary">@color/red</item> <!-- Set negative button color to red -->
 <!--        <item name="colorOnSecondary">@color/red</item> &lt;!&ndash; Set negative button text color to white &ndash;&gt;-->
         <!-- Add any other customizations you desire -->
+    </style>
+
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">@color/white</item>
+<!--        <item name="android:background">@color/dark</item>-->
+        <item name="android:filter">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
 </resources>

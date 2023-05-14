@@ -62,7 +62,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
                     android:gravity="center_horizontal"
-                    android:text="No Member - Full Name"
+                    android:text="No Instruktur - Full Name"
                     android:textColor="@color/white" />
 
                 <LinearLayout
@@ -72,40 +72,46 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/depositUang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawableStart="@drawable/baseline_attach_money_24"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="200000"
-                        android:textColor="@color/green" />
-
-                    <TextView
                         android:id="@+id/depositClass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
-                        android:drawableStart="@drawable/baseline_class_24"
+                        android:drawableStart="@drawable/baseline_timer_24"
                         android:drawablePadding="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="2 Class"
+                        android:text="Total Late: "
                         android:textColor="@color/yellow" />
                 </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/historyActivity"
-                    android:layout_width="200dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/poppins"
-                    android:text="HistoryActivity"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHistoryActivity"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/poppins"
+                        android:text="HistoryActivity"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/white" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChangePassword"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/poppins"
+                        android:text="Change Password"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
             </LinearLayout>
 
         </FrameLayout>
@@ -219,39 +225,6 @@
                         android:textColor="@color/dark" />
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Expired Date Member"
-                        android:textColor="@color/dark" />
-
-                    <TextView
-                        android:id="@+id/expiredDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="2023 - 12 -29"
-                        android:textColor="@color/dark" />
-                </LinearLayout>
-            </LinearLayout>
-
-
         </LinearLayout>
 
 

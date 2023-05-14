@@ -19,7 +19,7 @@ class HomeInstrukturActivity : AppCompatActivity() {
     var temp = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityHomeInstrukturBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -37,25 +37,32 @@ class HomeInstrukturActivity : AppCompatActivity() {
         val sharedPreference =  getSharedPreferences(myPreference, Context.MODE_PRIVATE)
         sharedPreference.getString("roleKey","defaultRole")
 
-//        val bundle = intent.getBundleExtra("keyBundle")
-//        if(intent.getBundleExtra("keyBundle")!=null){
-//            binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
-//            if(bundle?.getString("key","")=="pindahBookingGym"){
-//                binding.layoutFragmentInstruktur.setPadding(left,0,right,0)
-//                navViewInstruktur.selectedItemId = R.id.bookingGym
-//                changeFragment(BookingGymFragment())
-//            }else if(bundle?.getString("key","")=="pindahBookingClass"){
-//                binding.layoutFragmentInstruktur.setPadding(left,0,right,0)
-//                navViewInstruktur.selectedItemId = R.id.bookingClass
-//                changeFragment(BookingClassFragment())
-//            }else {
-//                navViewInstruktur.selectedItemId = R.id.bookingClass
-//                changeFragment(BookingClassFragment())
-//            }
-//        }else{
-//            changeFragment(HomeInstrukturFragment())
-//        }
-        changeFragment(HomeInstrukturFragment())
+        val bundle = intent.getBundleExtra("keyBundle")
+        if(intent.getBundleExtra("keyBundle")!=null){
+            binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
+            if(bundle?.getString("key","")=="pindahPresensiMember"){
+                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
+                navViewInstruktur.selectedItemId = R.id.presensiMember
+                changeFragment(PresensiMemberFragment())
+            }else if(bundle?.getString("key","")=="pindahIzinInstruktur"){
+                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
+                navViewInstruktur.selectedItemId = R.id.izinInstruktur
+                changeFragment(IzinInstrukturFragment())
+            }else if(bundle?.getString("key","")=="pindahHistoryActivityInstruktur"){
+                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
+                navViewInstruktur.selectedItemId = R.id.historyActivityInstruktur
+                changeFragment(HistoryActivityInstrukturFragment())
+            }else if(bundle?.getString("key","")=="pindahProfile"){
+                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
+                navViewInstruktur.selectedItemId = R.id.profileInstruktur
+                changeFragment(ProfileInstrukturFragment())
+            }else{
+                navViewInstruktur.selectedItemId = R.id.homeInstruktur
+                changeFragment(HomeInstrukturFragment())
+            }
+        }else{
+            changeFragment(HomeInstrukturFragment())
+        }
 
         navViewInstruktur.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -66,7 +73,7 @@ class HomeInstrukturActivity : AppCompatActivity() {
                 }
                 R.id.presensiMember -> {
                     changeFragment(PresensiMemberFragment())
-                    binding.layoutFragmentInstruktur.setPadding(left,0,right,0)
+                    binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                     true
                 }
                 R.id.izinInstruktur -> {
