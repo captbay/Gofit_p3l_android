@@ -17,7 +17,7 @@ class HomeMoActivity : AppCompatActivity() {
     var temp = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityHomeMoBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,26 +35,25 @@ class HomeMoActivity : AppCompatActivity() {
         val sharedPreference =  getSharedPreferences(myPreference, Context.MODE_PRIVATE)
         sharedPreference.getString("roleKey","defaultRole")
 
-//        val bundle = intent.getBundleExtra("keyBundle")
-//        if(intent.getBundleExtra("keyBundle")!=null){
-//            binding.layoutFragmentMo.setPadding(0,0,0,0)
-//            if(bundle?.getString("key","")=="pindahBookingGym"){
-//                binding.layoutFragmentMo.setPadding(left,0,right,0)
-//                navViewMo.selectedItemId = R.id.bookingGym
-//                changeFragment(BookingGymFragment())
-//            }else if(bundle?.getString("key","")=="pindahBookingClass"){
-//                binding.layoutFragmentMo.setPadding(left,0,right,0)
-//                navViewMo.selectedItemId = R.id.bookingClass
-//                changeFragment(BookingClassFragment())
-//            }else {
-//                navViewMo.selectedItemId = R.id.bookingClass
-//                changeFragment(BookingClassFragment())
-//            }
-//
-//        }else{
-//            changeFragment(HomeMoFragment())
-//        }
-        changeFragment(HomeMoFragment())
+        val bundle = intent.getBundleExtra("keyBundle")
+        if(intent.getBundleExtra("keyBundle")!=null){
+            binding.layoutFragmentMo.setPadding(0,0,0,0)
+            if(bundle?.getString("key","")=="pindahPresensiInstruktur"){
+                binding.layoutFragmentMo.setPadding(left,0,right,0)
+                navViewMo.selectedItemId = R.id.presensiInstruktur
+                changeFragment(PresensiInstrukturFragment())
+            }else if(bundle?.getString("key","")=="pindahProfile"){
+                binding.layoutFragmentMo.setPadding(0,0,0,0)
+                navViewMo.selectedItemId = R.id.profileMo
+                changeFragment(ProfileMoFragment())
+            }else {
+                navViewMo.selectedItemId = R.id.homeMo
+                changeFragment(HomeMoFragment())
+            }
+
+        }else{
+            changeFragment(HomeMoFragment())
+        }
 
         navViewMo.setOnItemSelectedListener { item ->
             when(item.itemId) {

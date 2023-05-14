@@ -131,6 +131,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.apply()
 
                         startActivity(moveHomeMember)
+                        //buat ga balik lagi ke login, kalau dari home balik jadinya selesai app
                         finish()
                     }
                     "instruktur" -> {
@@ -206,8 +207,8 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                     }else if(error.networkResponse.statusCode == 404){
-                        binding.layoutUsername.setError("Username Salah")
-                        binding.layoutPassword.setError("Password Salah")
+                        binding.layoutUsername.error = "Username Salah"
+                        binding.layoutPassword.error = "Password Salah"
                         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }else{
                         val errors = JSONObject(responseBody)

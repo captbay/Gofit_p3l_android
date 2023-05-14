@@ -50,8 +50,8 @@ class HomeMemberActivity : AppCompatActivity() {
                 navViewMember.selectedItemId = R.id.bookingClass
                 changeFragment(BookingClassFragment())
             }else {
-                navViewMember.selectedItemId = R.id.bookingClass
-                changeFragment(BookingClassFragment())
+                navViewMember.selectedItemId = R.id.profileMember
+                changeFragment(ProfileMemberFragment())
             }
 
         }else{

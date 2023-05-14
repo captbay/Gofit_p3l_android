@@ -42,21 +42,21 @@ class HomeMoFragment : Fragment() {
         binding.nomor.text = sharedPreferences!!.getString(usernamePref,"")
         binding.fullname.text = sharedPreferences!!.getString(fullnamePref,"")
 
-        binding.btnBookingGym.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("key", "pindahBookingGym")
-            intent.putExtra("keyBundle", bundle)
-            startActivity(intent)
-            activity?.finish()
-        }
-
-        binding.btnBookingClass.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("key", "pindahBookingClass")
-            intent.putExtra("keyBundle", bundle)
-            startActivity(intent)
-            activity?.finish()
-        }
+//        binding.btnBookingGym.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putString("key", "pindahBookingGym")
+//            intent.putExtra("keyBundle", bundle)
+//            startActivity(intent)
+//            activity?.finish()
+//        }
+//
+//        binding.btnBookingClass.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putString("key", "pindahBookingClass")
+//            intent.putExtra("keyBundle", bundle)
+//            startActivity(intent)
+//            activity?.finish()
+//        }
 
         binding.btnProfile.setOnClickListener {
             val bundle = Bundle()
