@@ -11,5 +11,5 @@ class Member (
     val gender: String,
     val jumlah_deposit_reguler: Double,
     val expired_date_membership: String,
-    val status_membership: Boolean,
+    val status_membership: Int,
 )

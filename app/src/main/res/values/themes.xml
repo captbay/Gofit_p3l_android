@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Gofit_p3l" parent="Theme.Material3.DayNight">
         <!-- Primary brand color. -->
@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/dark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor"  >?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
@@ -31,8 +31,8 @@
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorSurface">#EAE3D2</item>
-        <item name="colorOnSurfaceVariant">@color/orange</item>
-        <item name="colorOnSecondaryContainer">@color/orange</item>
+        <item name="colorOnSurfaceVariant">@color/dark</item>
+        <item name="colorOnSecondaryContainer">@color/dark</item>
         <item name="colorPrimary">#FFF8E6</item>
         <item name="android:fontFamily">@font/poppins</item>
     </style>
@@ -53,5 +53,15 @@
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">#706E6E</item>
         <item name="colorControlActivated">#FFEB3B</item>
+    </style>
+
+    <style name="CustomAlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <!-- Customize the colors as per your preference -->
+        <item name="colorSurface">@color/white</item> <!-- Set dialog box color to white -->
+<!--        <item name="colorPrimary">@color/orange</item> &lt;!&ndash; Set positive button color to orange &ndash;&gt;-->
+<!--        <item name="colorOnPrimary">@color/orange</item> &lt;!&ndash; Set positive button text color to white &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/red</item> &lt;!&ndash; Set negative button color to red &ndash;&gt;-->
+<!--        <item name="colorOnSecondary">@color/red</item> &lt;!&ndash; Set negative button text color to white &ndash;&gt;-->
+        <!-- Add any other customizations you desire -->
     </style>
 </resources>

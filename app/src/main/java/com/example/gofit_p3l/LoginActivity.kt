@@ -22,20 +22,26 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import com.example.awesomedialog.*
-import com.google.android.material.textfield.TextInputEditText
+import com.example.gofit_p3l.User.Instruktur
+import com.example.gofit_p3l.User.Member
+import com.example.gofit_p3l.User.Mo
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    lateinit var lBundle : Bundle
 
     private val myPreference = "myPref"
-    private val key = "nameKey"
-    private val id = "idKey"
-    private val name = "nameKey"
-    private var access = false
+    private val idPref = "idKey"
+    private val usernamePref = "usernameKey"
+    private val fullnamePref = "fullnameKey"
+    private val rolePref= "roleKey"
+    private val tokenTypePref = "token_typeKey"
+    private val accessTokenPref = "access_tokenKey"
+
     var sharedPreferences: SharedPreferences? = null
     private var queue: RequestQueue? = null
-    var moveHome : Intent? = null
+    var moveHomeMember : Intent? = null
+    var moveHomeInstruktur : Intent? = null
+    var moveHomeMo : Intent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -67,33 +73,35 @@ class LoginActivity : AppCompatActivity() {
 //            setContentView(view)
 //        }
 
-        moveHome = Intent(this, HomeActivity::class.java)
-//        if(intent.getBundleExtra("registerBundle")!=null){
-//            lBundle = intent.getBundleExtra("registerBundle")!!
-//            binding.inputUsername.setText(lBundle.getString("username"))
-//            binding.inputPassword.setText(lBundle.getString("password"))
-//        }
+        moveHomeMember = Intent(this, HomeMemberActivity::class.java)
+        moveHomeInstruktur = Intent(this, HomeInstrukturActivity::class.java)
+        moveHomeMo = Intent(this, HomeMoActivity::class.java)
 
         binding.btnLogin.setOnClickListener {
 
-            getUser()
+            Login()
 
         }
     }
 
-    private fun getUser(){
+    private fun Login(){
         binding.layoutUsername.error = null
         binding.layoutPassword.error = null
 
         val stringRequest: StringRequest = object :
             StringRequest(Method.POST, Api.LOGIN_URL_USER, Response.Listener { response ->
-                Log.d("getUser","berhasil login")
-                val gson = Gson()
+                Log.d("Login","berhasil login")
 
+//              get Response
+                val gson = Gson()
                 val jsonObject = JSONObject(response)
-                val jsonArray = jsonObject.getJSONObject("user")
-                val user = gson.fromJson(jsonArray.toString(), User::class.java)
-                val token = jsonObject.getString("access_token")
+//                get users
+                val jsonArrayUser = jsonObject.getJSONObject("user")
+                val user = gson.fromJson(jsonArrayUser.toString(), User::class.java)
+//                get token
+                val accessToken = jsonObject.getString("access_token")
+                val tokenType = jsonObject.getString("token_type")
+//                get role
                 val role = jsonObject.getString("role")
 
                 if(role == "admin" || role == "kasir"){
@@ -105,24 +113,79 @@ class LoginActivity : AppCompatActivity() {
 
                         }
                         .position(AwesomeDialog.POSITIONS.CENTER)
-                }else{
-                    val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                    editor.putString(id, user.id.toString())
-                    editor.putString(name, user.username)
-                    editor.putString("tokenKey", token)
-                    editor.putString("roleKey", role)
-                    editor.apply()
-
-                    startActivity(moveHome)
-                    finish()
                 }
+
+                when (role) {
+                    "member" -> {
+                        //                get data diri member
+                        val jsonArrayMember = jsonObject.getJSONObject("member")
+                        val member = gson.fromJson(jsonArrayMember.toString(), Member::class.java)
+
+                        val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                        editor.putString(idPref, user.id.toString())
+                        editor.putString(usernamePref, user.username)
+                        editor.putString(fullnamePref, member.name)
+                        editor.putString(accessTokenPref, accessToken)
+                        editor.putString(tokenTypePref, tokenType)
+                        editor.putString(rolePref, role)
+                        editor.apply()
+
+                        startActivity(moveHomeMember)
+                        finish()
+                    }
+                    "instruktur" -> {
+                        //                get data diri instruktur
+                        val jsonArrayInstruktur = jsonObject.getJSONObject("instruktur")
+                        val instruktur = gson.fromJson(jsonArrayInstruktur.toString(), Instruktur::class.java)
+
+                        val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                        editor.putString(idPref, user.id.toString())
+                        editor.putString(usernamePref, user.username)
+                        editor.putString(fullnamePref, instruktur.name)
+                        editor.putString(accessTokenPref, accessToken)
+                        editor.putString(tokenTypePref, tokenType)
+                        editor.putString(rolePref, role)
+                        editor.apply()
+
+                        startActivity(moveHomeInstruktur)
+                        finish()
+                    }
+                    "mo" -> {
+                        //                get data diri pegawai mo
+                        val jsonArrayMo = jsonObject.getJSONObject("pegawai")
+                        val mo = gson.fromJson(jsonArrayMo.toString(), Mo::class.java)
+
+                        val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                        editor.putString(idPref, user.id.toString())
+                        editor.putString(usernamePref, user.username)
+                        editor.putString(fullnamePref, mo.name)
+                        editor.putString(accessTokenPref, accessToken)
+                        editor.putString(tokenTypePref, tokenType)
+                        editor.putString(rolePref, role)
+                        editor.apply()
+
+                        startActivity(moveHomeMo)
+                        finish()
+                    }
+                    else -> {
+                        AwesomeDialog.build(this)
+                            .title("Restrict Access")
+                            .body("Please Contact Developer!")
+                            .icon(R.drawable.icon_gofit)
+                            .onNegative("OK") {
+
+                            }
+                            .position(AwesomeDialog.POSITIONS.CENTER)
+                    }
+                }
+
             }, Response.ErrorListener { error ->
                 try {
-                    Log.d("getUser","berhasil masuk try")
+                    Log.d("Login","berhasil masuk try")
 //                    dibawah ini error
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
-                    Log.d("getUser","berhasil masuk try 2")
+                    Log.d("Login","berhasil masuk try 2")
                     val jsonObject = JSONObject(responseBody)
                     val message = jsonObject.getString("message")
 
@@ -152,7 +215,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 } catch (e: Exception) {
-                    Log.d("getUser","berhasil masuk error")
+                    Log.d("Login","berhasil masuk error")
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }) {
