@@ -79,6 +79,21 @@ class ProfileMoFragment : Fragment() {
                         activity?.finish()
                     }
                     .show()
+
+//                AwesomeDialog.build(it1)
+//                    .title("Are you sure want to logout?")
+//                    .icon(R.drawable.icon_gofit)
+//                    .onNegative("No") {
+//
+//                    }
+//                    .onPositive("Yes"){
+//                        logout()
+//                        sharedPreferences?.edit()?.clear()?.apply()
+//                        val moveLogin = Intent(activity, LoginActivity::class.java)
+//                        startActivity(moveLogin)
+//                        activity?.finish()
+//                    }
+//                    .position(AwesomeDialog.POSITIONS.CENTER)
             }
         }
 

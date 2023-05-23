@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBookingClassActivity">
+    tools:context=".UpdateEndClassActivity">
 
     <FrameLayout
         android:id="@+id/topNavigationActivity"
@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:text="Add Booking Class"
+                android:text="Update End Class"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -65,27 +65,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Class Running"
+            android:text="Select Time Update"
             android:textColor="@color/dark"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutClassRunning"
+            android:id="@+id/layoutTime"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Class Running"
+            android:hint="Select Time"
             android:background="@drawable/border"
             android:layout_marginBottom="16dp">
 
-            <Spinner
-                android:id="@+id/dropDownClassRunning"
-                style="@style/Widget.AppCompat.Spinner.DropDown"
+            <Button
+                android:id="@+id/timePickerButton"
+                android:padding="16dp"
+                android:layout_margin="1dp"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
                 android:minHeight="58dp"
-                android:overlapAnchor="false"
-                android:spinnerMode="dropdown" />
+                android:text="Select Time"
+                android:textColor="@color/dark"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/poppins"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

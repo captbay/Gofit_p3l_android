@@ -4,25 +4,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.awesomedialog.*
+import com.example.awesomedialog.AwesomeDialog
+import com.example.awesomedialog.icon
+import com.example.awesomedialog.onNegative
+import com.example.awesomedialog.onPositive
+import com.example.awesomedialog.position
+import com.example.awesomedialog.title
 import com.example.gofit_p3l.HomeMemberActivity
-import com.example.gofit_p3l.User.MemberModels.BookingClass
-import com.example.gofit_p3l.databinding.RvItemClassBookingBinding
 import com.example.gofit_p3l.R
+import com.example.gofit_p3l.User.MemberModels.BookingClass
+import com.example.gofit_p3l.User.MemberModels.BookingGym
+import com.example.gofit_p3l.databinding.RvItemClassBookingBinding
+import com.example.gofit_p3l.databinding.RvItemGymBookingBinding
 
-class MemberBookingClassAdapter (
-    val data: Array<BookingClass>,
-    val listener: OnBookingClassClickListener
+
+class MemberBookingGymAdapter (
+    val data: Array<BookingGym>,
+    val listener: OnBookingGymClickListener
 ) :
-    RecyclerView.Adapter<MemberBookingClassAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MemberBookingGymAdapter.ViewHolder>() {
 
-    interface OnBookingClassClickListener {
-        fun onBookingClassCancel(position: Int)
+    interface OnBookingGymClickListener {
+        fun onBookingGymCancel(position: Int)
 //        fun onEdit()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = RvItemClassBookingBinding.inflate(
+        val binding = RvItemGymBookingBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -31,11 +39,11 @@ class MemberBookingClassAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bookingClass = data[position]
-        holder.bind(bookingClass)
+        val bookingGym = data[position]
+        holder.bind(bookingGym)
 
 //        holder.itemView.setOnClickListener {
-//            listener?.onBookingClassCancel(position)
+//            listener?.onBookingGymCancel(position)
 //        }
     }
 
@@ -43,23 +51,23 @@ class MemberBookingClassAdapter (
         return data.size
     }
 
-    inner class ViewHolder(private val binding: RvItemClassBookingBinding) :
+    inner class ViewHolder(private val binding: RvItemGymBookingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val context = binding.root.context as HomeMemberActivity
 
-        fun bind(bookingClass: BookingClass) {
+        fun bind(bookingGym: BookingGym) {
 //            binding.btnCancle.setOnClickListener {
 //                val position = adapterPosition
 //                if (position != RecyclerView.NO_POSITION) {
-//                    listener.onBookingClassCancel(position)
+//                    listener.onBookingGymCancel(position)
 //                }
 //            }
             binding.apply {
                 // Set data to the views using view binding
-                binding.tvNoClassBooking.text = bookingClass.no_class_booking
-                binding.tvNamaClass.text = bookingClass.nama_class
-                binding.tvTanggalWaktuClass.text = bookingClass.dateTime
+                binding.tvNoGymBooking.text = bookingGym.no_gym_booking
+                binding.tvNamaGym.text = bookingGym.nama_gym
+                binding.tvTanggalWaktuGym.text = bookingGym.dateTime
 
                 binding.btnCancle.setOnClickListener {
                     val position = adapterPosition
@@ -72,8 +80,8 @@ class MemberBookingClassAdapter (
 
                             }
                             .onPositive("Yes") {
-                                Log.d("DeleteClassBooking", position.toString())
-                                listener.onBookingClassCancel(position)
+                                Log.d("DeleteGymBooking", position.toString())
+                                listener.onBookingGymCancel(position)
                             }
                             .position(AwesomeDialog.POSITIONS.CENTER)
                             .show()
@@ -82,4 +90,5 @@ class MemberBookingClassAdapter (
             }
         }
     }
+
 }

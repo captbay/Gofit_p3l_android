@@ -1,5 +1,6 @@
 package com.example.gofit_p3l
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -22,12 +23,14 @@ import com.example.awesomedialog.onPositive
 import com.example.awesomedialog.position
 import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
-import com.example.gofit_p3l.databinding.ActivityAddBookingClassBinding
+import com.example.gofit_p3l.databinding.ActivityAddBookingGymBinding
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
-class AddBookingClassActivity : AppCompatActivity() {
+class AddBookingGymActivity : AppCompatActivity() {
     //buat cookies
     private val myPreference = "myPref"
     private val idPref = "idKey"
@@ -51,14 +54,16 @@ class AddBookingClassActivity : AppCompatActivity() {
     private var queue: RequestQueue? = null
 
     //buat ambil binding xml
-    private lateinit var binding: ActivityAddBookingClassBinding
+    private lateinit var binding: ActivityAddBookingGymBinding
 
     //buat kembali ke home
     var moveHome: Intent? = null
 
     //init other?
-    private var selectedIdClassRunning: Int = -1
-    private val idListClassRunning = mutableListOf<Int>()
+    private var selectedIdGym: Int = -1
+    private var selectedDateBooking: String = ""
+    private val idListGym = mutableListOf<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -72,18 +77,18 @@ class AddBookingClassActivity : AppCompatActivity() {
         username = sharedPreferences!!.getString(usernamePref, "").toString()
         idMember = sharedPreferences!!.getInt(idMemberPref,0)
 
-        binding = ActivityAddBookingClassBinding.inflate(layoutInflater)
+        binding = ActivityAddBookingGymBinding.inflate(layoutInflater)
         val view = binding.root
 
         setContentView(view)
 
         moveHome = Intent(this, HomeMemberActivity::class.java)
 
-        getClassRunning()
+        getGym()
 
         binding.btnBack.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("key", "pindahBookingClass")
+            bundle.putString("key", "pindahBookingGym")
             moveHome?.putExtra("keyBundle", bundle)
             startActivity(moveHome)
             this.finish()
@@ -97,14 +102,14 @@ class AddBookingClassActivity : AppCompatActivity() {
 
                 }
                 .onPositive("Yes") {
-                    addBookingClass()
+                    addBookingGym()
                 }
                 .position(AwesomeDialog.POSITIONS.CENTER)
         }
 
-        binding.dropDownClassRunning.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.dropDownGym.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedIdClassRunning= idListClassRunning[position]
+                selectedIdGym= idListGym[position]
                 // Use the selected ID for further processing
             }
 
@@ -112,14 +117,18 @@ class AddBookingClassActivity : AppCompatActivity() {
                 // Handle the case where nothing is selected
             }
         }
+
+        binding.datePickerButton.setOnClickListener {
+            showDatePickerDialog()
+        }
     }
 
-    private fun addBookingClass(){
+    private fun addBookingGym(){
         binding.layoutClassRunning.error = null
 
         val stringRequest: StringRequest = object :
-            StringRequest(Method.POST, Api.POST_CLASS_BOOKING_URL, Response.Listener { response ->
-                Log.d("bookingClass","berhasil add booking class")
+            StringRequest(Method.POST, Api.POST_GYM_BOOKING_URL, Response.Listener { response ->
+                Log.d("BookingGym","berhasil add booking gym")
 
                 val jsonObject = JSONObject(response)
                 val message = jsonObject.getString("message")
@@ -127,19 +136,19 @@ class AddBookingClassActivity : AppCompatActivity() {
 
 //                kalau sudah add bakal balik
                 val bundle = Bundle()
-                bundle.putString("key", "pindahBookingClass")
+                bundle.putString("key", "pindahBookingGym")
                 moveHome?.putExtra("keyBundle", bundle)
                 startActivity(moveHome)
                 this.finish()
 
             }, Response.ErrorListener { error ->
-                Log.d("bookingClass","erorr add booking class")
+                Log.d("bookingGym","erorr add booking gym")
                 val responseBody =
                     String(error.networkResponse.data, StandardCharsets.UTF_8)
                 val jsonObject = JSONObject(responseBody)
 
                 if(error.networkResponse.statusCode == 422){
-                    Toast.makeText(this, "Must Have a value", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Must Have a value or date must after yesterday", Toast.LENGTH_SHORT).show()
                 }else if(error.networkResponse.statusCode == 409){
                     val message = jsonObject.getString("message")
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -155,8 +164,9 @@ class AddBookingClassActivity : AppCompatActivity() {
 
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params["id_class_running"] = selectedIdClassRunning.toString()
+                params["id_gym"] = selectedIdGym.toString()
                 params["id_member"] = idMember.toString()
+                params["date_booking"] = selectedDateBooking
                 return params
             }
 
@@ -164,9 +174,9 @@ class AddBookingClassActivity : AppCompatActivity() {
         queue!!.add(stringRequest)
     }
 
-    private fun getClassRunning(){
+    private fun getGym(){
         val stringRequest: StringRequest = object :
-            StringRequest(Method.GET, Api.GET_CLASS_RUNNING_URL, Response.Listener { response ->
+            StringRequest(Method.GET, Api.GET_GYM_URL, Response.Listener { response ->
                 // Process the API response here
                 try {
                     val jsonObject = JSONObject(response)
@@ -177,18 +187,18 @@ class AddBookingClassActivity : AppCompatActivity() {
                     for (i in 0 until dataArray.length()) {
                         val dataObject = dataArray.getJSONObject(i)
                         val id = dataObject.getInt("id")
-                        val day_name = dataObject.getString("day_name")
-                        val startClass = dataObject.getJSONObject("jadwal_umum").getString("start_class")
-                        val classDetail = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail")
-                        val name = classDetail.getString("name") + '-' + day_name + '-' + startClass
+                        val capacity = dataObject.getString("capacity")
+                        val start_gym = getTimeOnly(dataObject.getString("start_gym"))
+                        val end_gym = getTimeOnly(dataObject.getString("end_gym"))
+                        val name = "Start $start_gym - End $end_gym / Cpty $capacity"
 
-                        idListClassRunning.add(id)
+                        idListGym.add(id)
                         nameList.add(name)
                     }
 
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nameList)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    binding.dropDownClassRunning.adapter = adapter
+                    binding.dropDownGym.adapter = adapter
 
 
                 } catch (e: JSONException) {
@@ -196,7 +206,7 @@ class AddBookingClassActivity : AppCompatActivity() {
                 }
 
             }, Response.ErrorListener { error ->
-                Log.d("Logout","erorr add class running")
+                Log.d("get gym add booking","erorr add gym")
                 Log.d("AAAAAA", error.networkResponse.statusCode.toString())
                 val responseBody =
                     String(error.networkResponse.data, StandardCharsets.UTF_8)
@@ -215,11 +225,42 @@ class AddBookingClassActivity : AppCompatActivity() {
         queue!!.add(stringRequest)
     }
 
+    private fun showDatePickerDialog() {
+        // Get the current date
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // Create a DatePickerDialog and set the initial date
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+            // Format the selected date as needed
+            val selectedDate = "$selectedYear-${selectedMonth + 1}-$selectedDayOfMonth"
+            selectedDateBooking = selectedDate
+            binding.datePickerButton.text = selectedDate
+
+        }, year, month, day)
+
+        // Show the DatePickerDialog
+        datePickerDialog.show()
+    }
+
+//    to get HH:mm only
+    fun getTimeOnly(timeString: String): String {
+        val parts = timeString.split(":")
+        if (parts.size >= 2) {
+            val hours = parts[0]
+            val minutes = parts[1]
+            return "$hours:$minutes"
+        }
+        return ""
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         // Navigate back to HomeActivity
         val bundle = Bundle()
-        bundle.putString("key", "pindahBookingClass")
+        bundle.putString("key", "pindahBookingGym")
         moveHome?.putExtra("keyBundle", bundle)
         startActivity(moveHome)
         finish()

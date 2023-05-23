@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
     var moveHomeMember : Intent? = null
     var moveHomeInstruktur : Intent? = null
     var moveHomeMo : Intent? = null
+    var moveSchedule : Intent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -79,11 +80,17 @@ class LoginActivity : AppCompatActivity() {
         moveHomeMember = Intent(this, HomeMemberActivity::class.java)
         moveHomeInstruktur = Intent(this, HomeInstrukturActivity::class.java)
         moveHomeMo = Intent(this, HomeMoActivity::class.java)
+//        move to shedule without login
+        moveSchedule = Intent(this, ScheduleActivity::class.java)
 
         binding.btnLogin.setOnClickListener {
 
             Login()
 
+        }
+
+        binding.btnShowClass.setOnClickListener{
+            startActivity(moveSchedule)
         }
     }
 

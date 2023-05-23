@@ -9,32 +9,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.awesomedialog.AwesomeDialog
-import com.example.awesomedialog.body
-import com.example.awesomedialog.icon
-import com.example.awesomedialog.onNegative
-import com.example.awesomedialog.position
-import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
 import com.example.gofit_p3l.LoginActivity
 import com.example.gofit_p3l.R
-import com.example.gofit_p3l.User.Instruktur
-import com.example.gofit_p3l.User.Member
-import com.example.gofit_p3l.User.Mo
-import com.example.gofit_p3l.User.User
 import com.example.gofit_p3l.databinding.FragmentProfileMemberBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.gson.Gson
-import org.json.JSONObject
-import java.nio.charset.StandardCharsets
 
 class ProfileMemberFragment : Fragment() {
     private val myPreference = "myPref"
@@ -93,6 +78,21 @@ class ProfileMemberFragment : Fragment() {
                         activity?.finish()
                     }
                     .show()
+
+//                AwesomeDialog.build(it1)
+//                    .title("Are you sure want to logout?")
+//                    .icon(R.drawable.icon_gofit)
+//                    .onNegative("No") {
+//
+//                    }
+//                    .onPositive("Yes"){
+//                        logout()
+//                        sharedPreferences?.edit()?.clear()?.apply()
+//                        val moveLogin = Intent(activity, LoginActivity::class.java)
+//                        startActivity(moveLogin)
+//                        activity?.finish()
+//                    }
+//                    .position(AwesomeDialog.POSITIONS.CENTER)
             }
         }
 

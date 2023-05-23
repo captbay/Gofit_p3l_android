@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBookingClassActivity">
+    tools:context=".PresensiMemberByClassActivity">
 
     <FrameLayout
         android:id="@+id/topNavigationActivity"
@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:text="Add Booking Class"
+                android:text="Presensi Member"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -50,59 +50,28 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_rv_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topNavigationActivity">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Class Running"
-            android:textColor="@color/dark"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutClassRunning"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Select Class Running"
-            android:background="@drawable/border"
-            android:layout_marginBottom="16dp">
-
-            <Spinner
-                android:id="@+id/dropDownClassRunning"
-                style="@style/Widget.AppCompat.Spinner.DropDown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:minHeight="58dp"
-                android:overlapAnchor="false"
-                android:spinnerMode="dropdown" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/orange"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Simpan"
-        android:textColor="@color/white"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_presensiMemberByClass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints"
+            tools:listitem="@layout/rv_item_presensi_member_per_class" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

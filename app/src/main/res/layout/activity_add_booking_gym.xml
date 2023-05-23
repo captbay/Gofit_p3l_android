@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBookingClassActivity">
+    tools:context=".AddBookingGymActivity">
 
     <FrameLayout
         android:id="@+id/topNavigationActivity"
@@ -25,7 +25,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="76dp"
             android:layout_marginBottom="32dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -65,7 +66,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Class Running"
+            android:text="Select GYM"
             android:textColor="@color/dark"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -73,12 +74,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Class Running"
+            android:hint="Select Gym"
             android:background="@drawable/border"
             android:layout_marginBottom="16dp">
 
             <Spinner
-                android:id="@+id/dropDownClassRunning"
+                android:id="@+id/dropDownGym"
                 style="@style/Widget.AppCompat.Spinner.DropDown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +87,36 @@
                 android:minHeight="58dp"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Date Booking"
+        android:textColor="@color/dark"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select Gym"
+            android:background="@drawable/border"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/datePickerButton"
+                android:padding="16dp"
+                android:layout_margin="1dp"
+                android:backgroundTint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="58dp"
+                android:text="Select Date"
+                android:textColor="@color/dark"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/poppins"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

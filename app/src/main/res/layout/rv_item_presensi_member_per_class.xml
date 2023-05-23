@@ -26,20 +26,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
+
                     <TextView
-                        android:id="@+id/noClassBooking"
+                        android:id="@+id/tv_noCLassBookingMember"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:text="No Class Booking"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="No Class Booking:  "
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="@color/dark" />
 
                     <TextView
-                        android:id="@+id/tv_noClassBooking"
+                        android:id="@+id/tv_metodeBayar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Cash/Paket"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="@color/dark" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_namaMember"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Member"
                         android:fontFamily="@font/poppins_bold"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="@color/dark" />
@@ -50,47 +69,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/namaClass"
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/statusClassRunning"
+                        style="@style/CardView"
+                        app:cardBackgroundColor="#FFE500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Nama Kelas Booking:  "
-                        android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="@color/dark" />
+                        android:layout_marginStart="4dp"
+                        app:cardCornerRadius="8dp">
+                        <TextView
+                            android:id="@+id/tv_statusPresensi"
+                            android:padding="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status Presensi"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="@color/dark" />
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        android:id="@+id/tv_namaClass"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="@color/dark" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tanggalWaktuClass"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:fontFamily="@font/poppins"
-                        android:text="Tanggal/Waktu Kelas:  "
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="@color/dark" />
-
-                    <TextView
-                        android:id="@+id/tv_tanggalWaktuClass"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="@color/dark" />
                 </LinearLayout>
 
                 <View
@@ -98,7 +96,6 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="8dp"
                     android:background="@color/dark" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,11 +104,11 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnCancle"
+                        android:id="@+id/btnPresensi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/red"
-                        android:text="Batal Booking"
+                        android:backgroundTint="@color/orange"
+                        android:text="Presensi Member"
                         android:fontFamily="@font/poppins_bold"/>
                 </LinearLayout>
 

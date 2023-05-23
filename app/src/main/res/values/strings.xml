@@ -2,4 +2,9 @@
     <string name="app_name">Gofit_p3l</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textShowClass"> <u>Our Class Schedule</u> </string>
+    <string-array name="dropdown_options">
+        <item>Hadir</item>
+        <item>Tidak Hadir</item>
+    </string-array>
 </resources>

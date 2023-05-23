@@ -1,14 +1,13 @@
 package com.example.gofit_p3l
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.TimePicker
 import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
@@ -22,21 +21,17 @@ import com.example.awesomedialog.onPositive
 import com.example.awesomedialog.position
 import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
-import com.example.gofit_p3l.databinding.ActivityAddBookingClassBinding
-import org.json.JSONException
+import com.example.gofit_p3l.databinding.ActivityUpdateStartClassBinding
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class AddBookingClassActivity : AppCompatActivity() {
+class UpdateStartClassActivity : AppCompatActivity() {
     //buat cookies
     private val myPreference = "myPref"
-    private val idPref = "idKey"
     private val usernamePref = "usernameKey"
-    private val idMemberPref = "idMemberKey"
-    private val idInstrukturPref = "idInstrukturKey"
-    private val idMoPref = "idMoKey"
-    private val fullnamePref = "fullnameKey"
-    private val rolePref = "roleKey"
     private val tokenTypePref = "token_typeKey"
     private val accessTokenPref = "access_tokenKey"
     var sharedPreferences: SharedPreferences? = null
@@ -45,20 +40,19 @@ class AddBookingClassActivity : AppCompatActivity() {
     private var username: String = ""
     private var tokenType: String = ""
     private var accessToken: String = ""
-    private var idMember: Int = 0
 
     //buat request
     private var queue: RequestQueue? = null
 
     //buat ambil binding xml
-    private lateinit var binding: ActivityAddBookingClassBinding
+    private lateinit var binding: ActivityUpdateStartClassBinding
 
     //buat kembali ke home
     var moveHome: Intent? = null
 
     //init other?
-    private var selectedIdClassRunning: Int = -1
-    private val idListClassRunning = mutableListOf<Int>()
+    private var selectedIdPresensiInstruktur: Int = -1
+    private var selectedTimeBooking: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -70,20 +64,22 @@ class AddBookingClassActivity : AppCompatActivity() {
         tokenType = sharedPreferences!!.getString(tokenTypePref, "").toString()
         accessToken = sharedPreferences!!.getString(accessTokenPref, "").toString()
         username = sharedPreferences!!.getString(usernamePref, "").toString()
-        idMember = sharedPreferences!!.getInt(idMemberPref,0)
 
-        binding = ActivityAddBookingClassBinding.inflate(layoutInflater)
+        binding = ActivityUpdateStartClassBinding.inflate(layoutInflater)
         val view = binding.root
 
         setContentView(view)
 
-        moveHome = Intent(this, HomeMemberActivity::class.java)
+        val bundle = intent.getBundleExtra("keyBundle")
+        if (bundle != null) {
+            selectedIdPresensiInstruktur = bundle.getInt("key",-1)
+        }
 
-        getClassRunning()
+        moveHome = Intent(this, HomeMoActivity::class.java)
 
         binding.btnBack.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("key", "pindahBookingClass")
+            bundle.putString("key", "pindahPresensiInstruktur")
             moveHome?.putExtra("keyBundle", bundle)
             startActivity(moveHome)
             this.finish()
@@ -97,29 +93,21 @@ class AddBookingClassActivity : AppCompatActivity() {
 
                 }
                 .onPositive("Yes") {
-                    addBookingClass()
+                    updateStartClass()
                 }
                 .position(AwesomeDialog.POSITIONS.CENTER)
         }
 
-        binding.dropDownClassRunning.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedIdClassRunning= idListClassRunning[position]
-                // Use the selected ID for further processing
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Handle the case where nothing is selected
-            }
+        binding.timePickerButton.setOnClickListener {
+            showTimePickerDialog()
         }
     }
 
-    private fun addBookingClass(){
-        binding.layoutClassRunning.error = null
+    private fun updateStartClass(){
 
         val stringRequest: StringRequest = object :
-            StringRequest(Method.POST, Api.POST_CLASS_BOOKING_URL, Response.Listener { response ->
-                Log.d("bookingClass","berhasil add booking class")
+            StringRequest(Method.POST, Api.POST_UPDATE_START_CLASS_URL + selectedIdPresensiInstruktur.toString(), Response.Listener { response ->
+                Log.d("presensiInstruktur","berhasil update")
 
                 val jsonObject = JSONObject(response)
                 val message = jsonObject.getString("message")
@@ -127,13 +115,13 @@ class AddBookingClassActivity : AppCompatActivity() {
 
 //                kalau sudah add bakal balik
                 val bundle = Bundle()
-                bundle.putString("key", "pindahBookingClass")
+                bundle.putString("key", "pindahPresensiInstruktur")
                 moveHome?.putExtra("keyBundle", bundle)
                 startActivity(moveHome)
                 this.finish()
 
             }, Response.ErrorListener { error ->
-                Log.d("bookingClass","erorr add booking class")
+                Log.d("presensiInstruktur","erorr update")
                 val responseBody =
                     String(error.networkResponse.data, StandardCharsets.UTF_8)
                 val jsonObject = JSONObject(responseBody)
@@ -155,8 +143,7 @@ class AddBookingClassActivity : AppCompatActivity() {
 
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params["id_class_running"] = selectedIdClassRunning.toString()
-                params["id_member"] = idMember.toString()
+                params["start_class"] = selectedTimeBooking
                 return params
             }
 
@@ -164,64 +151,35 @@ class AddBookingClassActivity : AppCompatActivity() {
         queue!!.add(stringRequest)
     }
 
-    private fun getClassRunning(){
-        val stringRequest: StringRequest = object :
-            StringRequest(Method.GET, Api.GET_CLASS_RUNNING_URL, Response.Listener { response ->
-                // Process the API response here
-                try {
-                    val jsonObject = JSONObject(response)
-                    val dataArray = jsonObject.getJSONArray("data")
+    private fun showTimePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
 
-                    val nameList = mutableListOf<String>()
+        val timePickerDialog = TimePickerDialog(this,
+            { _: TimePicker?, hourOfDay: Int, minute: Int ->
+                val selectedTime = Calendar.getInstance()
+                selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                selectedTime.set(Calendar.MINUTE, minute)
 
-                    for (i in 0 until dataArray.length()) {
-                        val dataObject = dataArray.getJSONObject(i)
-                        val id = dataObject.getInt("id")
-                        val day_name = dataObject.getString("day_name")
-                        val startClass = dataObject.getJSONObject("jadwal_umum").getString("start_class")
-                        val classDetail = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail")
-                        val name = classDetail.getString("name") + '-' + day_name + '-' + startClass
+                val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                val formattedTime = timeFormat.format(selectedTime.time)
+                //set
+                binding.timePickerButton.text = formattedTime
+                selectedTimeBooking = formattedTime
+            }, hour, minute, true)
 
-                        idListClassRunning.add(id)
-                        nameList.add(name)
-                    }
-
-                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nameList)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    binding.dropDownClassRunning.adapter = adapter
-
-
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-            }, Response.ErrorListener { error ->
-                Log.d("Logout","erorr add class running")
-                Log.d("AAAAAA", error.networkResponse.statusCode.toString())
-                val responseBody =
-                    String(error.networkResponse.data, StandardCharsets.UTF_8)
-                val jsonObject = JSONObject(responseBody)
-                Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show()
-            }) {
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Accept"] = "application/json"
-                headers["Authorization"] = "$tokenType $accessToken"
-                return headers
-            }
-
-        }
-        queue!!.add(stringRequest)
+        timePickerDialog.show()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         // Navigate back to HomeActivity
         val bundle = Bundle()
-        bundle.putString("key", "pindahBookingClass")
+        bundle.putString("key", "pindahPresensiInstruktur")
         moveHome?.putExtra("keyBundle", bundle)
         startActivity(moveHome)
-        finish()
+        this.finish()
     }
 }

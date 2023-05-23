@@ -32,6 +32,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateStatusPresensiMemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PresensiMemberByClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateEndClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateStartClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddBookingGymActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddBookingClassActivity"
             android:exported="false" />
         <activity

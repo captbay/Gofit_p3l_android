@@ -15,6 +15,13 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.awesomedialog.AwesomeDialog
+import com.example.awesomedialog.body
+import com.example.awesomedialog.icon
+import com.example.awesomedialog.onNegative
+import com.example.awesomedialog.onPositive
+import com.example.awesomedialog.position
+import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
 import com.example.gofit_p3l.LoginActivity
 import com.example.gofit_p3l.R
@@ -79,6 +86,21 @@ class ProfileInstrukturFragment : Fragment() {
                         activity?.finish()
                     }
                     .show()
+
+//                AwesomeDialog.build(it1)
+//                    .title("Are you sure want to logout?")
+//                    .icon(R.drawable.icon_gofit)
+//                    .onNegative("No") {
+//
+//                    }
+//                    .onPositive("Yes"){
+//                        logout()
+//                        sharedPreferences?.edit()?.clear()?.apply()
+//                        val moveLogin = Intent(activity, LoginActivity::class.java)
+//                        startActivity(moveLogin)
+//                        activity?.finish()
+//                    }
+//                    .position(AwesomeDialog.POSITIONS.CENTER)
             }
         }
 

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBookingClassActivity">
+    tools:context=".UpdateStatusPresensiMemberActivity">
 
     <FrameLayout
         android:id="@+id/topNavigationActivity"
@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:text="Add Booking Class"
+                android:text="Update Presensi Member"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -65,27 +65,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Class Running"
+            android:text="Select Hadir or Tidak Hadir"
             android:textColor="@color/dark"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutClassRunning"
+            android:id="@+id/layoutHadirOrNot"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Class Running"
+            android:hint="Select Update"
             android:background="@drawable/border"
             android:layout_marginBottom="16dp">
 
             <Spinner
-                android:id="@+id/dropDownClassRunning"
+                android:id="@+id/dropDownHadirOrNot"
                 style="@style/Widget.AppCompat.Spinner.DropDown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:minHeight="58dp"
-                android:overlapAnchor="false"
-                android:spinnerMode="dropdown" />
+                android:minHeight="58dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

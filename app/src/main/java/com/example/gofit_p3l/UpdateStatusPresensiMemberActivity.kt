@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
@@ -23,11 +24,12 @@ import com.example.awesomedialog.position
 import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
 import com.example.gofit_p3l.databinding.ActivityAddBookingClassBinding
-import org.json.JSONException
+import com.example.gofit_p3l.databinding.ActivityUpdateStartClassBinding
+import com.example.gofit_p3l.databinding.ActivityUpdateStatusPresensiMemberBinding
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
-class AddBookingClassActivity : AppCompatActivity() {
+class UpdateStatusPresensiMemberActivity : AppCompatActivity() {
     //buat cookies
     private val myPreference = "myPref"
     private val idPref = "idKey"
@@ -51,14 +53,17 @@ class AddBookingClassActivity : AppCompatActivity() {
     private var queue: RequestQueue? = null
 
     //buat ambil binding xml
-    private lateinit var binding: ActivityAddBookingClassBinding
+    private lateinit var binding: ActivityUpdateStatusPresensiMemberBinding
 
     //buat kembali ke home
     var moveHome: Intent? = null
 
     //init other?
-    private var selectedIdClassRunning: Int = -1
-    private val idListClassRunning = mutableListOf<Int>()
+    private var selectedHadirOrNot: Int = 0
+    private var selectedIdClassBooking: Int = -1
+
+    //dropdown
+    private lateinit var dropdownSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -70,22 +75,22 @@ class AddBookingClassActivity : AppCompatActivity() {
         tokenType = sharedPreferences!!.getString(tokenTypePref, "").toString()
         accessToken = sharedPreferences!!.getString(accessTokenPref, "").toString()
         username = sharedPreferences!!.getString(usernamePref, "").toString()
-        idMember = sharedPreferences!!.getInt(idMemberPref,0)
 
-        binding = ActivityAddBookingClassBinding.inflate(layoutInflater)
+        binding = ActivityUpdateStatusPresensiMemberBinding.inflate(layoutInflater)
         val view = binding.root
 
         setContentView(view)
 
-        moveHome = Intent(this, HomeMemberActivity::class.java)
+        val bundle = intent.getBundleExtra("keyBundle")
+        if (bundle != null) {
+            selectedIdClassBooking = bundle.getInt("key",-1)
+        }
 
-        getClassRunning()
+        moveHome = Intent(this, PresensiMemberByClassActivity::class.java)
+
 
         binding.btnBack.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("key", "pindahBookingClass")
-            moveHome?.putExtra("keyBundle", bundle)
-            startActivity(moveHome)
+//            startActivity(moveHome)
             this.finish()
         }
 
@@ -97,52 +102,71 @@ class AddBookingClassActivity : AppCompatActivity() {
 
                 }
                 .onPositive("Yes") {
-                    addBookingClass()
+                    updatePresensi()
                 }
                 .position(AwesomeDialog.POSITIONS.CENTER)
         }
 
-        binding.dropDownClassRunning.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedIdClassRunning= idListClassRunning[position]
-                // Use the selected ID for further processing
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.dropdown_options,
+            android.R.layout.simple_spinner_item
+        )
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // Apply the adapter to the spinner
+        binding.dropDownHadirOrNot.adapter = adapter
+
+        // Set an item selection listener for the spinner
+        binding.dropDownHadirOrNot.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                selectedHadirOrNot = if (selectedItem == "Hadir") 1 else 0
+                Log.d("HADIRORNOT",selectedHadirOrNot.toString())
+                // Process the value (1 or 0) as per your requirement
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Handle the case where nothing is selected
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
             }
         }
+
     }
 
-    private fun addBookingClass(){
-        binding.layoutClassRunning.error = null
+    private fun updatePresensi(){
 
         val stringRequest: StringRequest = object :
-            StringRequest(Method.POST, Api.POST_CLASS_BOOKING_URL, Response.Listener { response ->
-                Log.d("bookingClass","berhasil add booking class")
+            StringRequest(Method.POST, Api.POST_UPDATE_PRESENSI_MEMBER_URL + selectedIdClassBooking.toString(), Response.Listener { response ->
+                Log.d("task","berhasil update")
 
                 val jsonObject = JSONObject(response)
                 val message = jsonObject.getString("message")
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
 //                kalau sudah add bakal balik
-                val bundle = Bundle()
-                bundle.putString("key", "pindahBookingClass")
-                moveHome?.putExtra("keyBundle", bundle)
-                startActivity(moveHome)
                 this.finish()
 
             }, Response.ErrorListener { error ->
-                Log.d("bookingClass","erorr add booking class")
+                Log.d("text","erorr update")
                 val responseBody =
                     String(error.networkResponse.data, StandardCharsets.UTF_8)
                 val jsonObject = JSONObject(responseBody)
 
                 if(error.networkResponse.statusCode == 422){
                     Toast.makeText(this, "Must Have a value", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show()
                 }else if(error.networkResponse.statusCode == 409){
                     val message = jsonObject.getString("message")
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show()
                 }
             }) {
             @Throws(AuthFailureError::class)
@@ -155,60 +179,8 @@ class AddBookingClassActivity : AppCompatActivity() {
 
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params["id_class_running"] = selectedIdClassRunning.toString()
-                params["id_member"] = idMember.toString()
+                params["status"] = selectedHadirOrNot.toString()
                 return params
-            }
-
-        }
-        queue!!.add(stringRequest)
-    }
-
-    private fun getClassRunning(){
-        val stringRequest: StringRequest = object :
-            StringRequest(Method.GET, Api.GET_CLASS_RUNNING_URL, Response.Listener { response ->
-                // Process the API response here
-                try {
-                    val jsonObject = JSONObject(response)
-                    val dataArray = jsonObject.getJSONArray("data")
-
-                    val nameList = mutableListOf<String>()
-
-                    for (i in 0 until dataArray.length()) {
-                        val dataObject = dataArray.getJSONObject(i)
-                        val id = dataObject.getInt("id")
-                        val day_name = dataObject.getString("day_name")
-                        val startClass = dataObject.getJSONObject("jadwal_umum").getString("start_class")
-                        val classDetail = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail")
-                        val name = classDetail.getString("name") + '-' + day_name + '-' + startClass
-
-                        idListClassRunning.add(id)
-                        nameList.add(name)
-                    }
-
-                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nameList)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    binding.dropDownClassRunning.adapter = adapter
-
-
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-            }, Response.ErrorListener { error ->
-                Log.d("Logout","erorr add class running")
-                Log.d("AAAAAA", error.networkResponse.statusCode.toString())
-                val responseBody =
-                    String(error.networkResponse.data, StandardCharsets.UTF_8)
-                val jsonObject = JSONObject(responseBody)
-                Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show()
-            }) {
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Accept"] = "application/json"
-                headers["Authorization"] = "$tokenType $accessToken"
-                return headers
             }
 
         }
@@ -218,10 +190,7 @@ class AddBookingClassActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         // Navigate back to HomeActivity
-        val bundle = Bundle()
-        bundle.putString("key", "pindahBookingClass")
-        moveHome?.putExtra("keyBundle", bundle)
-        startActivity(moveHome)
-        finish()
+//        startActivity(moveHome)
+        this.finish()
     }
 }

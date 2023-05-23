@@ -156,8 +156,6 @@ class AddInstrukturIzinActivity : AppCompatActivity() {
 
                 if(error.networkResponse.statusCode == 422){
                     binding.layoutAlasan.error = "This input must have a value"
-                    binding.layoutAlasan.error = "This input must have a value"
-                    binding.layoutAlasan.error = "This input must have a value"
                     Toast.makeText(this, "Must Have a value", Toast.LENGTH_SHORT).show()
                 }else if(error.networkResponse.statusCode == 409){
                     val message = jsonObject.getString("message")

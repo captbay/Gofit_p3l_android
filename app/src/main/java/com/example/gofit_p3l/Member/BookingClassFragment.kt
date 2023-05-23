@@ -29,7 +29,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
-class BookingClassFragment : Fragment(), MemberBookingClassAdapter.OnBookingClassClickListener {
+class BookingClassFragment : Fragment() {
     //buat cookies
     private val myPreference = "myPref"
     private val idPref = "idKey"
@@ -80,54 +80,9 @@ class BookingClassFragment : Fragment(), MemberBookingClassAdapter.OnBookingClas
         accessToken = sharedPreferences!!.getString(accessTokenPref,"").toString()
         username = sharedPreferences!!.getString(usernamePref, "").toString()
         idMember = sharedPreferences!!.getInt(idMemberPref,0)
-        
-        val bundle = Bundle()
-
-        //lakukan setting untuk rv biar terconnet adapter dengan baik dan set layoutnya
-        layoutManager = LinearLayoutManager(requireContext())
-        adapter = MemberBookingClassAdapter(emptyArray(), object : MemberBookingClassAdapter.OnBookingClassClickListener {
-            override fun onBookingClassCancel(position: Int) {
-                val bookingClass = adapter.data[position]
-                val bookingClassId = bookingClass.id
-
-                Log.d("onBookingClassCancel", bookingClassId.toString())
-
-                val stringRequest : StringRequest = object:
-                    StringRequest(Method.DELETE, Api.DELETE_CLASS_BOOKING_URL+ bookingClassId.toString(), Response.Listener { response ->
-
-                        getClassBooking(idMember)
-                        Toast.makeText(requireActivity(), "Booking class canceled.", Toast.LENGTH_SHORT).show()
-                    }, Response.ErrorListener { error ->
-                        binding.refreshRvItem.isRefreshing = false
-
-                        try {
-                            val responseBody =
-                                String(error.networkResponse.data, StandardCharsets.UTF_8)
-                            val errors = JSONObject(responseBody)
-                            Toast.makeText(requireActivity(), errors.getString("message"), Toast.LENGTH_SHORT).show()
-                        } catch (e: Exception){
-                            Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }) {
-                    @Throws(AuthFailureError::class)
-                    override fun getHeaders(): Map<String, String> {
-                        val headers = HashMap<String, String>()
-                        headers["Accept"] = "application/json"
-                        headers["Authorization"] = "$tokenType $accessToken"
-                        return headers
-                    }
-
-                }
-                queue!!.add(stringRequest)
-            }
-        })
-
-        rvBookingClass = binding.rvClassBooking
-        rvBookingClass.adapter = adapter // Memasang adapter sebelum mengatur layoutManager
-        rvBookingClass.layoutManager = layoutManager
-        rvBookingClass.setHasFixedSize(true)
 
         //ambil data
+        displayBookingClass(emptyArray())
         getClassBooking(idMember)
 
         //kalo refresh ulang lagi nampilin
@@ -138,8 +93,6 @@ class BookingClassFragment : Fragment(), MemberBookingClassAdapter.OnBookingClas
             startActivity(moveAddBookingClass)
             activity?.finish()
         }
-
-
     }
 
     private fun getClassBooking(idMember: Int){
@@ -212,14 +165,21 @@ class BookingClassFragment : Fragment(), MemberBookingClassAdapter.OnBookingClas
     }
 
     private fun displayBookingClass(data: Array<BookingClass>) {
-        adapter = MemberBookingClassAdapter(data,this)
+        adapter = MemberBookingClassAdapter(data, object : MemberBookingClassAdapter.OnBookingClassClickListener {
+            override fun onBookingClassCancel(position: Int) {
+                bookingClassCancel(position)
+            }
+//            override fun onEdit() {
+//
+//            }
+        })
         binding.rvClassBooking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvClassBooking.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
 
-    override fun onBookingClassCancel(position: Int) {
+    fun bookingClassCancel(position: Int) {
         val bookingClass = adapter.data[position]
         val bookingClassId = bookingClass.id
 
