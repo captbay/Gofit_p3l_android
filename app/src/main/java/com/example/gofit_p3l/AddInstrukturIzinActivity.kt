@@ -142,11 +142,12 @@ class AddInstrukturIzinActivity : AppCompatActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
 //                kalau sudah add bakal balik
+                // Navigate back to HomeActivity
                 val bundle = Bundle()
                 bundle.putString("key", "pindahIzinInstruktur")
                 moveHome?.putExtra("keyBundle", bundle)
                 startActivity(moveHome)
-                this.finish()
+                finish()
 
             }, Response.ErrorListener { error ->
                 Log.d("izinInstruktur","erorr add izin")

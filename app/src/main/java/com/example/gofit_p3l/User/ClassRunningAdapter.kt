@@ -21,8 +21,8 @@ class ClassRunningAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val instrukturIzin = data[position]
-        holder.bind(instrukturIzin)
+        val classRunning = data[position]
+        holder.bind(classRunning)
     }
 
     override fun getItemCount(): Int {

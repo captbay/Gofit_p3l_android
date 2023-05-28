@@ -113,8 +113,8 @@ class PresensiInstrukturFragment : Fragment() {
                             val id = jsonData.getInt("id")
                             val nama_class = jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("name")
                             val nama_instruktur = jsonData.getJSONObject("instruktur").getString("name")
-                            val start_class = getTimeOnly(jsonData.getString("start_class"))
-                            val end_class = getTimeOnly(jsonData.getString("end_class"))
+                            val start_class = getTimeOnly(jsonData.getJSONObject("class_running").getString("start_class"))
+                            val end_class = getTimeOnly(jsonData.getJSONObject("class_running").getString("end_class"))
                             val startEnd_class = "$start_class - $end_class"
                             val day_name = jsonData.getJSONObject("class_running").getString("day_name")
                             val date = jsonData.getJSONObject("class_running").getString("date")

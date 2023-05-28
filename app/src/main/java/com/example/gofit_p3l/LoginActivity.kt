@@ -132,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
                         val member = gson.fromJson(jsonArrayMember.toString(), Member::class.java)
 
                         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                        editor.putString(idPref, user.id.toString())
+                        editor.putInt(idPref, user.id)
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, member.name)
                         editor.putInt(idMemberPref, member.id)
@@ -151,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
                         val instruktur = gson.fromJson(jsonArrayInstruktur.toString(), Instruktur::class.java)
 
                         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                        editor.putString(idPref, user.id.toString())
+                        editor.putInt(idPref, user.id)
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, instruktur.name)
                         editor.putInt(idInstrukturPref, instruktur.id)
@@ -169,7 +169,7 @@ class LoginActivity : AppCompatActivity() {
                         val mo = gson.fromJson(jsonArrayMo.toString(), Mo::class.java)
 
                         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                        editor.putString(idPref, user.id.toString())
+                        editor.putInt(idPref, user.id)
                         editor.putString(usernamePref, user.username)
                         editor.putString(fullnamePref, mo.name)
                         editor.putInt(idMoPref, mo.id)

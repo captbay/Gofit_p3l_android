@@ -100,7 +100,7 @@ class BookingGymFragment : Fragment() {
         val stringRequest : StringRequest = object:
             StringRequest(Method.GET, Api.GET_GYM_BOOKING_BY_ID_MEMBER_URL+ idMember.toString(), Response.Listener { response ->
                 try {
-                    val gson = Gson()
+
                     val jsonObject = JSONObject(response)
                     val jsonArrayData = jsonObject.getJSONArray("data")
 

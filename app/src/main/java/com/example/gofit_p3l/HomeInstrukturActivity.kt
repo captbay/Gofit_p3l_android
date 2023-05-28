@@ -14,20 +14,12 @@ import com.example.gofit_p3l.databinding.ActivityHomeInstrukturBinding
 class HomeInstrukturActivity : AppCompatActivity() {
     private val myPreference = "myPref"
     private lateinit var binding: ActivityHomeInstrukturBinding
-    var left = 0
-    var right = 0
-    var temp = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityHomeInstrukturBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if(temp==0){
-            left = binding.layoutFragmentInstruktur.paddingLeft
-            right = binding.layoutFragmentInstruktur.paddingRight
-        }
 
 //        instrukturlogin
         val navViewInstruktur  = binding.bottomNavigationInstruktur
@@ -39,21 +31,16 @@ class HomeInstrukturActivity : AppCompatActivity() {
 
         val bundle = intent.getBundleExtra("keyBundle")
         if(intent.getBundleExtra("keyBundle")!=null){
-            binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
             if(bundle?.getString("key","")=="pindahPresensiMember"){
-                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                 navViewInstruktur.selectedItemId = R.id.presensiMember
                 changeFragment(PresensiMemberFragment())
             }else if(bundle?.getString("key","")=="pindahIzinInstruktur"){
-                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                 navViewInstruktur.selectedItemId = R.id.izinInstruktur
                 changeFragment(IzinInstrukturFragment())
             }else if(bundle?.getString("key","")=="pindahHistoryActivityInstruktur"){
-                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                 navViewInstruktur.selectedItemId = R.id.historyActivityInstruktur
                 changeFragment(HistoryActivityInstrukturFragment())
             }else if(bundle?.getString("key","")=="pindahProfile"){
-                binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                 navViewInstruktur.selectedItemId = R.id.profileInstruktur
                 changeFragment(ProfileInstrukturFragment())
             }else{
@@ -68,29 +55,24 @@ class HomeInstrukturActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.homeInstruktur -> {
                     changeFragment(HomeInstrukturFragment())
-                    binding.layoutFragmentInstruktur.setPadding(left,0,right,0)
                     true
                 }
                 R.id.presensiMember -> {
                     changeFragment(PresensiMemberFragment())
-                    binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                     true
                 }
                 R.id.izinInstruktur -> {
 
                     changeFragment(IzinInstrukturFragment())
-                    binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                     true
                 }
                 R.id.historyActivityInstruktur -> {
                     changeFragment(HistoryActivityInstrukturFragment())
-                    binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                     true
                 }
                 R.id.profileInstruktur ->{
 
                     changeFragment(ProfileInstrukturFragment())
-                    binding.layoutFragmentInstruktur.setPadding(0,0,0,0)
                     true
                 }
                 else -> false

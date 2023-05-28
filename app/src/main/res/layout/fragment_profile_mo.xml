@@ -53,6 +53,15 @@
                     app:civ_border_color="@color/orange"
                     app:civ_circle_background_color="#000000" />
 
+                <TextView
+                    android:id="@+id/nomor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:gravity="center_horizontal"
+                    android:text="No User"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/username"
@@ -61,36 +70,23 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
                     android:gravity="center_horizontal"
-                    android:text="No Member - Full Name"
+                    android:text="Full Name"
                     android:textColor="@color/white" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginVertical="16dp"
                     android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnHistoryActivity"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="@font/poppins"
-                        android:text="HistoryActivity"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@color/white" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnChangePassword"
-                        android:layout_width="180dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/poppins"
                         android:text="Change Password"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -129,7 +125,6 @@
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tembok"
                         android:textColor="@color/dark" />
                 </LinearLayout>
 
@@ -150,7 +145,6 @@
                         android:id="@+id/numberPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="082341324824"
                         android:textColor="@color/dark" />
                 </LinearLayout>
             </LinearLayout>
@@ -182,7 +176,6 @@
                         android:id="@+id/bornDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2001 - 12 - 29"
                         android:textColor="@color/dark" />
                 </LinearLayout>
 
@@ -203,7 +196,6 @@
                         android:id="@+id/gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pria"
                         android:textColor="@color/dark" />
                 </LinearLayout>
             </LinearLayout>
@@ -234,7 +226,6 @@
                         android:id="@+id/role"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Manager Operasional"
                         android:textColor="@color/dark" />
                 </LinearLayout>
             </LinearLayout>
@@ -244,23 +235,6 @@
 
 
     </LinearLayout>
-
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/btnCetakMemberCard"-->
-    <!--        style="@style/Widget.Material3.Button.OutlinedButton"-->
-    <!--        android:layout_width="fill_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        android:fontFamily="@font/poppins_bold"-->
-    <!--        android:text="Cetak Member Card"-->
-    <!--        android:textColor="@color/orange"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/btnLogout"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:strokeColor="@color/orange" />-->
 
     <Button
         android:id="@+id/btnLogout"
@@ -278,14 +252,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<!--        <include-->
-<!--            android:id="@+id/layout_loading_mo"-->
-<!--            layout="@layout/layout_loading"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="fill_parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <include
+            android:id="@+id/layout_loading_mo"
+            layout="@layout/layout_loading"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

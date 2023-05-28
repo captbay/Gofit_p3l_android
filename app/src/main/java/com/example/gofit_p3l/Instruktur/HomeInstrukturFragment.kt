@@ -38,35 +38,13 @@ class HomeInstrukturFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences(myPreference, Context.MODE_PRIVATE)
         val intent = Intent(activity, HomeInstrukturActivity::class.java)
 
-        binding.nomor.text = sharedPreferences!!.getString(usernamePref,"")
-        binding.fullname.text = sharedPreferences!!.getString(fullnamePref,"")
+        val inputString = sharedPreferences!!.getString(fullnamePref,"").toString()
+        val words = inputString.split(" ") // Memisahkan string menjadi array kata-kata
 
-//        binding.btnBookingGym.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putString("key", "pindahBookingGym")
-//            intent.putExtra("keyBundle", bundle)
-//            startActivity(intent)
-//            activity?.finish()
-//        }
-//
-//        binding.btnBookingClass.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putString("key", "pindahBookingClass")
-//            intent.putExtra("keyBundle", bundle)
-//            startActivity(intent)
-//            activity?.finish()
-//        }
+        val numberOfWordsToShow = 3 // Jumlah kata yang ingin ditampilkan
+        val selectedWords = words.take(numberOfWordsToShow) // Mengambil kata-kata yang akan ditampilkan
 
-        binding.btnProfile.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("key", "pindahProfile")
-            intent.putExtra("keyBundle", bundle)
-            startActivity(intent)
-            activity?.finish()
-
-
-        }
-
+        binding.fullname.text =selectedWords.joinToString(" ")
 
     }
 }

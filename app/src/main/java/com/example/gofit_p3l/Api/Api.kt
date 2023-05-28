@@ -3,7 +3,7 @@ package com.example.gofit_p3l.Api
 class Api {
     companion object{
         private const val BASE_URL = "http://192.168.100.175:8000/api/" //kontrakan
-//        private const val BASE_URL = "http://10.53.3.151:8000/api/" //kampus
+//        private const val BASE_URL = "http://10.53.10.54:8000/api/" //kampus
 //        private const val BASE_URL = "http://172.20.10.2:8000/api/" // hotspot ages iphone
 
         const val LOGIN_URL_USER = BASE_URL + "login"
@@ -11,6 +11,10 @@ class Api {
 
         const val GET_USER_URL_LOGIN = BASE_URL + "users"
         const val UPDATEPASS_URL_USER = BASE_URL + "users/updatePassword"
+
+//        deposit package
+        const val GET_COUNT_DEPOSIT_PACKAGE_BY_ID_MEMBER_URL = BASE_URL + "deposit_package/countPackageByIdMember/"
+        const val GET_DEPOSIT_PACKAGE_BY_ID_MEMBER_URL = BASE_URL + "deposit_package/byIdMember/"
 
 //        intruktur izin
         const val POST_IZIN_URL = BASE_URL + "instruktur_izin"
@@ -44,5 +48,11 @@ class Api {
 
 //        Presensi Member
         const val POST_UPDATE_PRESENSI_MEMBER_URL = BASE_URL + "class_booking/presensiMember/"
+
+//        member activities
+        const val GET_MEMBER_ACTIVITIES_BY_ID_MEMBER_URL = BASE_URL + "member_activity/byIdMember/"
+
+//        instruktur activities
+        const val GET_INSTRUKTUR_ACTIVITIES_BY_ID_INSTRUKTUR_URL = BASE_URL + "instruktur_activity/byIdInstruktur/"
     }
 }

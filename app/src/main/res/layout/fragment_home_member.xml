@@ -7,274 +7,201 @@
     android:background="@color/white"
     tools:context=".Member.HomeMemberFragment">
 
-    <TextView
-        android:id="@+id/nomor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="No"
-        android:textColor="@color/dark"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/centerline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="-"
-        android:textColor="@color/dark"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
-        app:layout_constraintStart_toEndOf="@+id/nomor"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/fullname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Username"
-        android:textColor="@color/dark"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
-        app:layout_constraintStart_toEndOf="@+id/centerline"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:text="Halo,"
-        android:textColor="@color/dark"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+    <FrameLayout
+        android:id="@+id/topBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/box"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomor"
-        app:layout_constraintVertical_bias="0.061">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <android.widget.TextView
-                    android:id="@+id/textView"
-                    android:layout_width="300dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/box_radius"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <android.widget.TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Saldo Deposit Reguler"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.16000003" />
-
-                <android.widget.TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Diset jumlah uang nanti"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4"
-                    app:layout_constraintVertical_bias="0.25" />
-
-                <android.widget.ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="120dp"
-                    android:layout_height="138dp"
-                    android:src="@drawable/icon_gofit"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/haloMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp">
+                android:layout_marginStart="32dp"
+                android:text="Halo,"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
 
-                <android.widget.TextView
-                    android:id="@+id/card2"
-                    android:layout_width="300dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/box_radius"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-8dp"
+                android:orientation="horizontal">
 
-                <android.widget.TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Saldo Deposit Class"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/card2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.16000003" />
-
-                <android.widget.TextView
-                    android:id="@+id/namaDepositKelas"
-                    android:layout_width="151dp"
-                    android:layout_height="16dp"
-                    android:text="Nama Kelas"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/card2"
-                    app:layout_constraintStart_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
-                    app:layout_constraintVertical_bias="0.04000002" />
-
-                <android.widget.TextView
-                    android:id="@+id/jumlahSaldoKelas"
-                    android:layout_width="151dp"
-                    android:layout_height="16dp"
-                    android:text="Jumlah Kelas"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toTopOf="@+id/btnProfile"
-                    app:layout_constraintStart_toStartOf="@+id/namaDepositKelas"
-                    app:layout_constraintTop_toBottomOf="@+id/namaDepositKelas"
-                    app:layout_constraintVertical_bias="0.04000002" />
-
-                <android.widget.ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="120dp"
-                    android:layout_height="138dp"
-                    android:src="@drawable/icon_gofit"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <android.widget.Button
-                    android:id="@+id/btnProfile"
+                <TextView
+                    android:id="@+id/fullname"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:backgroundTint="@color/orange"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="Selengkapnya"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="@+id/jumlahSaldoKelas"
-                    app:layout_constraintTop_toBottomOf="@+id/jumlahSaldoKelas" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginStart="64dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="Username"
+                    android:textColor="@color/orange"
+                    android:textSize="25sp" />
+            </LinearLayout>
 
 
         </LinearLayout>
+    </FrameLayout>
 
-    </HorizontalScrollView>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="170dp"
-        android:background="@color/dark"
-        android:src="@drawable/icon_gofit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        app:layout_constraintVertical_bias="0.16"
-        android:contentDescription="LogoGOFIT" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Booking Gym atau Kelas Anda sekarang!. Lalu buatlah fisik impian Anda"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <Button
-        android:id="@+id/btnBookingGym"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/boxDepositAll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Booking Gym"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnBookingClass"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btnBookingClass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Booking Class"
-        android:textColor="@color/white"
+        android:background="@drawable/box_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBox">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDeposit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textsisasaldoUang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sisa Deposit Uang :"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/depositUang"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/green"
+                    android:fontFamily="@font/poppins_bold"
+                    app:icon="@drawable/baseline_attach_money_24"
+                    app:iconTint="@color/green"
+                    app:iconGravity="textStart"
+                    android:enabled="false"
+                    app:iconPadding="8dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textsisasaldoPaket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sisa Deposit Paket :"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/depositClass"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/yellow"
+                    android:fontFamily="@font/poppins_bold"
+                    app:strokeColor="@color/yellow"
+                    app:icon="@drawable/baseline_class_24"
+                    app:iconTint="@color/yellow"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnBookingGym"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/boxDepositAll"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/dark"
+            android:contentDescription="LogoGOFIT"
+            android:src="@drawable/icon_gofit" />
+
+        <TextView
+            android:id="@+id/namaPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_bold"
+            android:text="GoFit"
+            android:textColor="@color/dark"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/alamatPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Jl. Centralpark No. 10 Yogyakarta"
+            android:textColor="@color/dark"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/mottoPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:text="Booking Gym atau Kelas Anda sekarang!. Lalu buatlah fisik impian Anda"
+            android:textAlignment="center"
+            android:textColor="@color/dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading_member"
+        layout="@layout/layout_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

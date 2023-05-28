@@ -187,6 +187,7 @@ class UpdateStatusPresensiMemberActivity : AppCompatActivity() {
         queue!!.add(stringRequest)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         // Navigate back to HomeActivity

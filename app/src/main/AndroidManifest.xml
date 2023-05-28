@@ -32,46 +32,64 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DepositClassActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
             android:name=".UpdateStatusPresensiMemberActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PresensiMemberByClassActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UpdateEndClassActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UpdateStartClassActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AddBookingGymActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ScheduleActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AddBookingClassActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AddInstrukturIzinActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UpdatePasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".HomeMoActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".HomeInstrukturActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".HomeMemberActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

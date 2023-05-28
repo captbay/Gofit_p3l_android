@@ -12,20 +12,12 @@ import com.example.gofit_p3l.databinding.ActivityHomeMoBinding
 class HomeMoActivity : AppCompatActivity() {
     private val myPreference = "myPref"
     private lateinit var binding: ActivityHomeMoBinding
-    var left = 0
-    var right = 0
-    var temp = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityHomeMoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if(temp==0){
-            left = binding.layoutFragmentMo.paddingLeft
-            right = binding.layoutFragmentMo.paddingRight
-        }
 
 //        mologin
         val navViewMo  = binding.bottomNavigationMo
@@ -37,13 +29,10 @@ class HomeMoActivity : AppCompatActivity() {
 
         val bundle = intent.getBundleExtra("keyBundle")
         if(intent.getBundleExtra("keyBundle")!=null){
-            binding.layoutFragmentMo.setPadding(0,0,0,0)
             if(bundle?.getString("key","")=="pindahPresensiInstruktur"){
-                binding.layoutFragmentMo.setPadding(0,0,0,0)
                 navViewMo.selectedItemId = R.id.presensiInstruktur
                 changeFragment(PresensiInstrukturFragment())
             }else if(bundle?.getString("key","")=="pindahProfile"){
-                binding.layoutFragmentMo.setPadding(0,0,0,0)
                 navViewMo.selectedItemId = R.id.profileMo
                 changeFragment(ProfileMoFragment())
             }else {
@@ -59,18 +48,15 @@ class HomeMoActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.homeMo -> {
                     changeFragment(HomeMoFragment())
-                    binding.layoutFragmentMo.setPadding(left,0,right,0)
                     true
                 }
                 R.id.presensiInstruktur -> {
                     changeFragment(PresensiInstrukturFragment())
-                    binding.layoutFragmentMo.setPadding(0,0,0,0)
                     true
                 }
                 R.id.profileMo ->{
 
                     changeFragment(ProfileMoFragment())
-                    binding.layoutFragmentMo.setPadding(0,0,0,0)
                     true
                 }
                 else -> false

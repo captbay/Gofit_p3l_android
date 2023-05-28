@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Member.HistoryActivityMemberFragment">
+    tools:context=".DepositClassActivity">
 
     <FrameLayout
-        android:id="@+id/frameLayoutTop"
+        android:id="@+id/topNavigationActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box"
@@ -18,21 +20,34 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="32dp"
-            android:paddingBottom="32dp">
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="horizontal">
 
-            <TextView
+            <ImageButton
+                android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="Back"
+                android:padding="8dp"
+                android:src="@drawable/baseline_arrow_back_36" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/poppins_bold"
-                android:text="History Activity"
-                android:textColor="@color/orange"
-                android:textSize="25sp" />
+                android:gravity="center"
+                android:text="Deposit Package Class"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
         </LinearLayout>
+
     </FrameLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -40,10 +55,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayoutTop">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_historyActivity"
+            android:id="@+id/rv_depositClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,8 +69,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints"
-            tools:listitem="@layout/rv_item_history_activity_member" />
+            tools:listitem="@layout/rv_item_deposit_class" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
