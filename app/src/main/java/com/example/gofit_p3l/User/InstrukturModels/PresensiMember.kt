@@ -7,4 +7,5 @@ class PresensiMember (
     val day_name: String,
     val date: String,
     val statusClassRunning: String,
+    val statusPresensi: String,
 )

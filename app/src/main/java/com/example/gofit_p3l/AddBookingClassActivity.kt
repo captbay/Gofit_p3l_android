@@ -1,11 +1,13 @@
 package com.example.gofit_p3l
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -26,6 +28,8 @@ import com.example.gofit_p3l.databinding.ActivityAddBookingClassBinding
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AddBookingClassActivity : AppCompatActivity() {
     //buat cookies
@@ -60,6 +64,7 @@ class AddBookingClassActivity : AppCompatActivity() {
     private var selectedIdClassRunning: Int = -1
     private val idListClassRunning = mutableListOf<Int>()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -111,6 +116,15 @@ class AddBookingClassActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Handle the case where nothing is selected
             }
+        }
+
+        binding.dropDownClassRunning.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Menggeser posisi dropdown ke kiri sejauh 16dp
+                val dropdownOffset = 20 * resources.displayMetrics.density // Mengubah dp menjadi px
+                binding.dropDownClassRunning.dropDownHorizontalOffset = -dropdownOffset.toInt()
+            }
+            false
         }
     }
 
@@ -178,7 +192,7 @@ class AddBookingClassActivity : AppCompatActivity() {
                         val dataObject = dataArray.getJSONObject(i)
                         val id = dataObject.getInt("id")
                         val day_name = dataObject.getString("day_name")
-                        val startClass = dataObject.getJSONObject("jadwal_umum").getString("start_class")
+                        val startClass = convertTimeTo12HourFormat(dataObject.getJSONObject("jadwal_umum").getString("start_class"))
                         val classDetail = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail")
                         val name = classDetail.getString("name") + '-' + day_name + '-' + startClass
 
@@ -213,6 +227,13 @@ class AddBookingClassActivity : AppCompatActivity() {
 
         }
         queue!!.add(stringRequest)
+    }
+
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
     }
 
     @Deprecated("Deprecated in Java")

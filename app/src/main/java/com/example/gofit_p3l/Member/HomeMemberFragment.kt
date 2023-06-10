@@ -24,6 +24,9 @@ import com.example.gofit_p3l.databinding.ActivityHomeMemberBinding
 import com.example.gofit_p3l.databinding.FragmentHomeMemberBinding
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class HomeMemberFragment : Fragment() {
     //buat cookies
@@ -106,7 +109,7 @@ class HomeMemberFragment : Fragment() {
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONObject("dataDiri")
 
-                binding.depositUang.text = jsonArray.getString("jumlah_deposit_reguler")
+                binding.depositUang.text = formatMoneyIDR(jsonArray.getString("jumlah_deposit_reguler"))
 
                 setLoading(false)
 
@@ -131,6 +134,19 @@ class HomeMemberFragment : Fragment() {
 
         }
         queue!!.add(stringRequest)
+    }
+
+    private fun formatMoneyIDR(amount: String): String {
+        val amountValue = amount.toLongOrNull()
+        return if (amountValue != null) {
+            val formatSymbols = DecimalFormatSymbols(Locale("id", "ID"))
+            formatSymbols.groupingSeparator = '.'
+            formatSymbols.decimalSeparator = ','
+            val decimalFormat = DecimalFormat("#,###", formatSymbols)
+            decimalFormat.format(amountValue)
+        } else {
+            "Invalid amount"
+        }
     }
 
     private fun getCountPackage(){

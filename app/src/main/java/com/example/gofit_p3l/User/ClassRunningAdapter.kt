@@ -40,7 +40,7 @@ class ClassRunningAdapter (
                 binding.tvJamMulaiKelasSchedule.text = classRunning.start_class
                 binding.tvNamaKelasSchedule.text = classRunning.nama_class
                 binding.tvNamaInstrukturSchedule.text = classRunning.nama_instruktur
-                binding.tvPriceClassRunning.text = "Rp." + classRunning.price
+                binding.tvPriceClassRunning.text = classRunning.price
                 if(classRunning.status == ""){
                     // Hide the status card view
                     statusSchedule.visibility = View.GONE

@@ -31,6 +31,8 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class IzinInstrukturFragment : Fragment() {
     //buat cookies
@@ -82,7 +84,7 @@ class IzinInstrukturFragment : Fragment() {
         val bundle = Bundle()
         
         //lakukan setting untuk rv biar terconnet adapter dengan baik dan set layoutnya
-        layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = LinearLayoutManager(activity?.applicationContext)
         adapter = InstrukturIzinAdapter(emptyArray())
         rvIzin = binding.rvIzinInstruktur
         rvIzin.adapter = adapter // Memasang adapter sebelum mengatur layoutManager
@@ -123,16 +125,17 @@ class IzinInstrukturFragment : Fragment() {
                             val jsonData = jsonArrayData.getJSONObject(i)
 
                             val id = jsonData.getInt("id")
-                            val namaInstruktur = jsonData.getJSONObject("instruktur").getString("name")
                             val namaInstrukturPengganti = jsonData.getJSONObject("instruktur_pengganti").getString("name")
-                            val namaClassRunning = jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("name")
+                            val namaClass = jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("name")
+                            val dayClass = jsonData.getJSONObject("class_running").getString("day_name")
+                            val startClass = convertTimeTo12HourFormat(jsonData.getJSONObject("class_running").getString("start_class"))
+                            val namaClassRunning = namaClass +" - "+ dayClass +" - "+ startClass
                             val alasan = jsonData.getString("alasan")
                             val isConfirm = jsonData.getInt("is_confirm")
                             val date = jsonData.getString("date")
 
                             val instrukturIzin = InstrukturIzin(
                                 id,
-                                namaInstruktur,
                                 namaInstrukturPengganti,
                                 namaClassRunning,
                                 alasan,
@@ -175,9 +178,16 @@ class IzinInstrukturFragment : Fragment() {
         queue!!.add(stringRequest)
     }
 
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
+    }
+
     private fun displayInstrukturIzin(data: Array<InstrukturIzin>) {
         adapter = InstrukturIzinAdapter(data)
-        binding.rvIzinInstruktur.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvIzinInstruktur.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvIzinInstruktur.adapter = adapter
         adapter.notifyDataSetChanged()
     }

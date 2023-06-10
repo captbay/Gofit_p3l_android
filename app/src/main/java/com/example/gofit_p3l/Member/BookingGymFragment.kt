@@ -1,5 +1,6 @@
 package com.example.gofit_p3l.Member
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -28,6 +29,8 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class BookingGymFragment : Fragment() {
     //buat cookies
@@ -116,8 +119,8 @@ class BookingGymFragment : Fragment() {
 
                             val id = jsonData.getInt("id")
                             val no_gym_booking = jsonData.getString("no_gym_booking")
-                            val start_gym = jsonData.getJSONObject("gym").getString("start_gym")
-                            val end_gym = jsonData.getJSONObject("gym").getString("end_gym")
+                            val start_gym = convertTimeTo12HourFormat(jsonData.getJSONObject("gym").getString("start_gym"))
+                            val end_gym = convertTimeTo12HourFormat(jsonData.getJSONObject("gym").getString("end_gym"))
                             val nama_gym = "$start_gym - $end_gym"
                             val date = jsonData.getString("date_booking")
 
@@ -163,16 +166,21 @@ class BookingGymFragment : Fragment() {
         queue!!.add(stringRequest)
     }
 
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun displayBookingGym(data: Array<BookingGym>) {
         adapter = MemberBookingGymAdapter(data, object : MemberBookingGymAdapter.OnBookingGymClickListener {
             override fun onBookingGymCancel(position: Int) {
                 bookingGymCancel(position)
             }
-//            override fun onEdit() {
-//
-//            }
         })
-        binding.rvGymBooking.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvGymBooking.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvGymBooking.adapter = adapter
         adapter.notifyDataSetChanged()
     }

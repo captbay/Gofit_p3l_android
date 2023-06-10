@@ -88,14 +88,19 @@
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="@color/dark" />
                     </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/statusClassRunning"
                         style="@style/CardView"
-                        app:cardBackgroundColor="#FFE500"
+                        app:cardBackgroundColor="@color/red"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
                         app:cardCornerRadius="8dp">
                         <TextView
                             android:id="@+id/tv_statusClassRunning"
@@ -105,9 +110,31 @@
                             android:text="Status"
                             android:fontFamily="@font/poppins_bold"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/presensiStatus"
+                        style="@style/CardView"
+                        app:cardBackgroundColor="@color/yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
+                        <TextView
+                            android:id="@+id/tv_presensiStatus"
+                            android:padding="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status Presensi"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="@color/dark" />
                     </com.google.android.material.card.MaterialCardView>
-
                 </LinearLayout>
 
                 <View

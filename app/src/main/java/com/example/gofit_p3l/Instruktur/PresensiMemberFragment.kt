@@ -15,6 +15,12 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.awesomedialog.AwesomeDialog
+import com.example.awesomedialog.body
+import com.example.awesomedialog.icon
+import com.example.awesomedialog.onNegative
+import com.example.awesomedialog.position
+import com.example.awesomedialog.title
 import com.example.gofit_p3l.Api.Api
 import com.example.gofit_p3l.HomeInstrukturActivity
 import com.example.gofit_p3l.PresensiMemberByClassActivity
@@ -26,6 +32,8 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PresensiMemberFragment : Fragment() {
     //buat cookies
@@ -108,13 +116,13 @@ class PresensiMemberFragment : Fragment() {
 
                             val id = jsonData.getInt("id")
                             val nama_class = jsonData.getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("name")
-                            val start_class = getTimeOnly(jsonData.getString("start_class"))
-                            val end_class = getTimeOnly(jsonData.getString("end_class"))
+                            val start_class = convertTimeTo12HourFormat(jsonData.getString("start_class"))
+                            val end_class = convertTimeTo12HourFormat(jsonData.getString("end_class"))
                             val startEnd_class = "$start_class - $end_class"
                             val day_name = jsonData.getString("day_name")
                             val date = jsonData.getString("date")
                             val statusClassRunning = jsonData.getString("status")
-
+                            val statusPresensi = jsonData.getJSONObject("presensi").getString("status_class")
                             val presensiMember= PresensiMember(
                                 id,
                                 nama_class,
@@ -122,6 +130,7 @@ class PresensiMemberFragment : Fragment() {
                                 day_name,
                                 date,
                                 statusClassRunning,
+                                statusPresensi,
                             )
 
                             presensiMemberList.add(presensiMember)
@@ -160,14 +169,11 @@ class PresensiMemberFragment : Fragment() {
     }
 
     //    to get HH:mm only
-    fun getTimeOnly(timeString: String): String {
-        val parts = timeString.split(":")
-        if (parts.size >= 2) {
-            val hours = parts[0]
-            val minutes = parts[1]
-            return "$hours:$minutes"
-        }
-        return ""
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
     }
 
     private fun displayPresensiMember(data: Array<PresensiMember>) {
@@ -178,16 +184,27 @@ class PresensiMemberFragment : Fragment() {
                 val presensiMember = adapter.data[position]
                 val idClassRunning = presensiMember.id
 
-                val moveDetail= Intent(activity, PresensiMemberByClassActivity::class.java)
-                val bundle = Bundle()
-                bundle.putInt("key", idClassRunning)
-                moveDetail?.putExtra("keyBundle", bundle)
-                startActivity(moveDetail)
-                activity?.finish()
+                if(presensiMember.statusPresensi == "null"){
+                    AwesomeDialog.build(requireActivity())
+                        .title("Restrict Access")
+                        .body("Anda Belum Di Presensi Oleh MO!")
+                        .icon(R.drawable.icon_gofit)
+                        .onNegative("OK") {
+
+                        }
+                        .position(AwesomeDialog.POSITIONS.CENTER)
+                }else{
+                    val moveDetail= Intent(activity, PresensiMemberByClassActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt("key", idClassRunning)
+                    moveDetail?.putExtra("keyBundle", bundle)
+                    startActivity(moveDetail)
+                    activity?.finish()
+                }
             }
 
         })
-        binding.rvPresensiMember.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPresensiMember.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvPresensiMember.adapter = adapter
         adapter.notifyDataSetChanged()
     }

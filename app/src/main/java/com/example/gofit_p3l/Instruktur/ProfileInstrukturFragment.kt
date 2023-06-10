@@ -1,5 +1,6 @@
 package com.example.gofit_p3l.Instruktur
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -154,7 +155,8 @@ class ProfileInstrukturFragment : Fragment() {
 
     private fun getUserLogin(){
         setLoading(true)
-        val stringRequest : StringRequest = object:
+        val stringRequest : StringRequest = @SuppressLint("SetTextI18n")
+        object:
             StringRequest(Method.GET, Api.GET_USER_URL_LOGIN, Response.Listener { response ->
 
                 val jsonObject = JSONObject(response)
@@ -164,7 +166,7 @@ class ProfileInstrukturFragment : Fragment() {
                 binding.numberPhone.text =jsonArray.getString("number_phone")
                 binding.bornDate.text = jsonArray.getString("born_date")
                 binding.gender.text =jsonArray.getString("gender")
-                binding.totalLate.text = "Total Late: " + jsonArray.getString("total_late")
+                binding.totalLate.text = "Total Late: " + jsonArray.getString("total_late") + " sec"
 
                 setLoading(false)
 
@@ -190,7 +192,6 @@ class ProfileInstrukturFragment : Fragment() {
         }
         queue!!.add(stringRequest)
     }
-
     private fun setLoading(isLoading: Boolean){
         if(isLoading){
             activity?.window?.setFlags(

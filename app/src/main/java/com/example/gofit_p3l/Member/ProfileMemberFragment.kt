@@ -27,6 +27,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class ProfileMemberFragment : Fragment() {
     //buat cookies
@@ -158,7 +161,7 @@ class ProfileMemberFragment : Fragment() {
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONObject("dataDiri")
 
-                binding.depositUang.text = jsonArray.getString("jumlah_deposit_reguler")
+                binding.depositUang.text = formatMoneyIDR(jsonArray.getString("jumlah_deposit_reguler"))
 
                 binding.address.text = jsonArray.getString("address")
                 binding.numberPhone.text =jsonArray.getString("number_phone")
@@ -189,6 +192,19 @@ class ProfileMemberFragment : Fragment() {
 
         }
         queue!!.add(stringRequest)
+    }
+
+    private fun formatMoneyIDR(amount: String): String {
+        val amountValue = amount.toLongOrNull()
+        return if (amountValue != null) {
+            val formatSymbols = DecimalFormatSymbols(Locale("id", "ID"))
+            formatSymbols.groupingSeparator = '.'
+            formatSymbols.decimalSeparator = ','
+            val decimalFormat = DecimalFormat("#,###", formatSymbols)
+            decimalFormat.format(amountValue)
+        } else {
+            "Invalid amount"
+        }
     }
 
     private fun getCountPackage(){

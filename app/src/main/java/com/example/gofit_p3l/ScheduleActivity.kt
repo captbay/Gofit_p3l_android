@@ -18,6 +18,9 @@ import com.example.gofit_p3l.databinding.ActivityScheduleBinding
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class ScheduleActivity : AppCompatActivity() {
     //buat request
@@ -72,7 +75,7 @@ class ScheduleActivity : AppCompatActivity() {
                             val nameClass = classDetail.getString("name")
                             val nameInstruktur = dataObject.getJSONObject("instruktur").getString("name")
                             val status = dataObject.getString("status")
-                            val price = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("price")
+                            val price = formatMoneyIDR(dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("price"))
 //                            if(status == ""){
 //                                status = "Berjalan"
 //                            }
@@ -116,6 +119,19 @@ class ScheduleActivity : AppCompatActivity() {
 
         }
         queue!!.add(stringRequest)
+    }
+
+    private fun formatMoneyIDR(amount: String): String {
+        val amountValue = amount.toLongOrNull()
+        return if (amountValue != null) {
+            val formatSymbols = DecimalFormatSymbols(Locale("id", "ID"))
+            formatSymbols.groupingSeparator = '.'
+            formatSymbols.decimalSeparator = ','
+            val decimalFormat = DecimalFormat("#,###", formatSymbols)
+            "Rp. ${decimalFormat.format(amountValue)}"
+        } else {
+            "Invalid amount"
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

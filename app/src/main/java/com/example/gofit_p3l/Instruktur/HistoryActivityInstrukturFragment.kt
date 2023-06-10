@@ -153,7 +153,7 @@ class HistoryActivityInstrukturFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun displayActivities(data: Array<InstrukturActivities>) {
         adapter = InstrukturHistoryActivityAdapter(data)
-        binding.rvHistoryActivity.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHistoryActivity.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvHistoryActivity.adapter = adapter
         adapter.notifyDataSetChanged()
     }

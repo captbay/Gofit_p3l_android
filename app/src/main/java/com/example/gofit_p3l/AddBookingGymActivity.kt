@@ -29,6 +29,7 @@ import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class AddBookingGymActivity : AppCompatActivity() {
     //buat cookies
@@ -187,10 +188,10 @@ class AddBookingGymActivity : AppCompatActivity() {
                     for (i in 0 until dataArray.length()) {
                         val dataObject = dataArray.getJSONObject(i)
                         val id = dataObject.getInt("id")
-                        val capacity = dataObject.getString("capacity")
-                        val start_gym = getTimeOnly(dataObject.getString("start_gym"))
-                        val end_gym = getTimeOnly(dataObject.getString("end_gym"))
-                        val name = "Start $start_gym - End $end_gym / Cpty $capacity"
+//                        val capacity = dataObject.getString("capacity")
+                        val start_gym = convertTimeTo12HourFormat(dataObject.getString("start_gym"))
+                        val end_gym = convertTimeTo12HourFormat(dataObject.getString("end_gym"))
+                        val name = "Start $start_gym - End $end_gym"
 
                         idListGym.add(id)
                         nameList.add(name)
@@ -246,14 +247,11 @@ class AddBookingGymActivity : AppCompatActivity() {
     }
 
 //    to get HH:mm only
-    fun getTimeOnly(timeString: String): String {
-        val parts = timeString.split(":")
-        if (parts.size >= 2) {
-            val hours = parts[0]
-            val minutes = parts[1]
-            return "$hours:$minutes"
-        }
-        return ""
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
     }
 
     override fun onBackPressed() {

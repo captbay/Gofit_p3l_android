@@ -26,6 +26,8 @@ import com.example.gofit_p3l.databinding.ActivityAddInstrukturIzinBinding
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AddInstrukturIzinActivity : AppCompatActivity() {
     //buat cookies
@@ -244,8 +246,9 @@ class AddInstrukturIzinActivity : AppCompatActivity() {
                         val dataObject = dataArray.getJSONObject(i)
                         val id = dataObject.getInt("id")
                         val day_name = dataObject.getString("day_name")
+                        val startClass = convertTimeTo12HourFormat(dataObject.getJSONObject("jadwal_umum").getString("start_class"))
                         val classDetail = dataObject.getJSONObject("jadwal_umum").getJSONObject("class_detail")
-                        val name = classDetail.getString("name") + '-' + day_name
+                        val name = classDetail.getString("name") + '-' + day_name + '-' + startClass
 
                         idListClassRunning.add(id)
                         nameList.add(name)
@@ -277,6 +280,13 @@ class AddInstrukturIzinActivity : AppCompatActivity() {
 
         }
         queue!!.add(stringRequest)
+    }
+
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
     }
 
     override fun onBackPressed() {

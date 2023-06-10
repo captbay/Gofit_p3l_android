@@ -2,9 +2,11 @@ package com.example.gofit_p3l.Api
 
 class Api {
     companion object{
-        private const val BASE_URL = "http://192.168.100.175:8000/api/" //kontrakan
-//        private const val BASE_URL = "http://10.53.10.54:8000/api/" //kampus
-//        private const val BASE_URL = "http://172.20.10.2:8000/api/" // hotspot ages iphone
+//        private const val BASE_URL = "http://192.168.100.175:8000/api/" //kontrakan
+//        private const val BASE_URL = "http://192.168.92.246:8000/api/" //kampus
+//        private const val BASE_URL = "http://172.20.10.3:8000/api/" // hotspot ages iphone
+//        private const val BASE_URL = "http://192.168.50.57:8000/api/" // kopi layr sentuh
+        private const val BASE_URL = "https://ages.ppcdeveloper.com/api/" // final api
 
         const val LOGIN_URL_USER = BASE_URL + "login"
         const val LOGOUT_URL_USER = BASE_URL + "logout"

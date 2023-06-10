@@ -155,7 +155,7 @@ class HistoryActivityMemberFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun displayActivities(data: Array<MemberActivities>) {
         adapter = MemberHistoryActivityAdapter(data)
-        binding.rvHistoryActivity.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHistoryActivity.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvHistoryActivity.adapter = adapter
         adapter.notifyDataSetChanged()
     }

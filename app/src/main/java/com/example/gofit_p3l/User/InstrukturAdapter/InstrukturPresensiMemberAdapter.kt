@@ -60,6 +60,12 @@ class InstrukturPresensiMemberAdapter (
                     binding.tvStatusClassRunning.text = presensiMember.statusClassRunning
                 }
 
+                if (presensiMember.statusPresensi == "1"){
+                    binding.tvPresensiStatus.text = "Anda Sudah Dipresensi"
+                }else{
+                    binding.tvPresensiStatus.text = "Anda Belum Dipresensi"
+                }
+
                 binding.btnPresensi.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {

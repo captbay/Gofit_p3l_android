@@ -17,7 +17,7 @@ class HomeMemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeMemberBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityHomeMemberBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -77,7 +77,7 @@ class HomeMemberActivity : AppCompatActivity() {
     }
 
     private fun changeFragment(fragment: Fragment?){
-        if(fragment!=null) {
+        if(fragment != null) {
             supportFragmentManager.beginTransaction().replace(R.id.layout_fragment_member, fragment).commit()
         }
     }

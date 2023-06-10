@@ -214,7 +214,7 @@ class PresensiInstrukturFragment : Fragment() {
             }
 
         })
-        binding.rvPresensiInstruktur.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPresensiInstruktur.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvPresensiInstruktur.adapter = adapter
         adapter.notifyDataSetChanged()
     }

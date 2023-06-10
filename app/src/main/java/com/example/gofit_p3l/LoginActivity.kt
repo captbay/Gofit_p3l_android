@@ -46,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
     var moveHomeInstruktur : Intent? = null
     var moveHomeMo : Intent? = null
     var moveSchedule : Intent? = null
+    private var role: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -54,28 +55,7 @@ class LoginActivity : AppCompatActivity() {
         queue = Volley.newRequestQueue(this)
 
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-
-        setContentView(R.layout.activity_splash_screen)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            setContentView(view)
-        }, 2000)
-
-//        kalo mau isi terus untuk splash screen tolong hapusin key nya
-//        if(!sharedPreferences!!.contains(key)){
-//            val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-//            editor.putString(key, "terisi")
-//            editor.apply()
-//            setContentView(R.layout.activity_splash_screen)
-//
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                setContentView(view)
-//            }, 3000)
-//        }else{
-//            setContentView(view)
-//        }
+        role = sharedPreferences!!.getString(rolePref, "").toString()
 
         moveHomeMember = Intent(this, HomeMemberActivity::class.java)
         moveHomeInstruktur = Intent(this, HomeInstrukturActivity::class.java)
@@ -83,14 +63,34 @@ class LoginActivity : AppCompatActivity() {
 //        move to shedule without login
         moveSchedule = Intent(this, ScheduleActivity::class.java)
 
-        binding.btnLogin.setOnClickListener {
+//        membuat kalo udah login ga harus login terus
+        if(role == "instruktur"){
+            startActivity(moveHomeInstruktur)
+            finish()
+        }else if (role == "member"){
+            startActivity(moveHomeMember)
+            finish()
+        }else if (role == "mo"){
+            startActivity(moveHomeMo)
+            finish()
+        }else{
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            val view = binding.root
+//            selalu nampilin splash screen
+            setContentView(R.layout.activity_splash_screen)
+            Handler(Looper.getMainLooper()).postDelayed({
+                setContentView(view)
+            }, 1000)
 
-            Login()
+            binding.btnLogin.setOnClickListener {
 
-        }
+                Login()
 
-        binding.btnShowClass.setOnClickListener{
-            startActivity(moveSchedule)
+            }
+
+            binding.btnShowClass.setOnClickListener{
+                startActivity(moveSchedule)
+            }
         }
     }
 
@@ -112,20 +112,8 @@ class LoginActivity : AppCompatActivity() {
                 val accessToken = jsonObject.getString("access_token")
                 val tokenType = jsonObject.getString("token_type")
 //                get role
-                val role = jsonObject.getString("role")
 
-                if(role == "admin" || role == "kasir"){
-                    AwesomeDialog.build(this)
-                        .title("Restrict Access")
-                        .body("Please Contact Developer!")
-                        .icon(R.drawable.icon_gofit)
-                        .onNegative("OK") {
-
-                        }
-                        .position(AwesomeDialog.POSITIONS.CENTER)
-                }
-
-                when (role) {
+                when (val role = jsonObject.getString("role")) {
                     "member" -> {
                         //                get data diri member
                         val jsonArrayMember = jsonObject.getJSONObject("member")

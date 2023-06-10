@@ -1,5 +1,6 @@
 package com.example.gofit_p3l.User.InstrukturAdapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,14 +38,15 @@ class InstrukturIzinAdapter(private val data: Array<InstrukturIzin>) :
         fun bind(instrukturIzin: InstrukturIzin) {
             binding.apply {
                 // Set data to the views using view binding
-                binding.tvNamaInstruktur.text = instrukturIzin.nama_instruktur
                 binding.tvNamaClassRunnning.text = instrukturIzin.nama_class_runnning
                 binding.tvNamaInstrukturPengganti.text = instrukturIzin.nama_instruktur_pengganti
                 binding.tvAlasan.text = instrukturIzin.alasan
-                binding.tvIsConfirm.text = if (instrukturIzin.is_confirm == 0) {
-                    "Belum"
+
+                if (instrukturIzin.is_confirm == 0) {
+                    binding.tvIsConfirm.text = "Belum Dikonfirmasi"
                 } else {
-                    "Sudah"
+                    binding.tvIsConfirm.text = "Sudah Dikonfirmasi"
+                    binding.confirm.setCardBackgroundColor(Color.parseColor("#007f0d"))
                 }
                 binding.tvDate.text = instrukturIzin.date
                 // Set any other views as needed

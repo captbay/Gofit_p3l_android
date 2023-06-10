@@ -28,6 +28,8 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class BookingClassFragment : Fragment() {
     //buat cookies
@@ -119,7 +121,7 @@ class BookingClassFragment : Fragment() {
                             val no_class_booking = jsonData.getString("no_class_booking")
                             val nama_class = jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getJSONObject("class_detail").getString("name")
                             val date = jsonData.getJSONObject("class_running").getString("date")
-                            val time = jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getString("start_class")
+                            val time = convertTimeTo12HourFormat(jsonData.getJSONObject("class_running").getJSONObject("jadwal_umum").getString("start_class"))
                             val dateTime = "$date / $time"
 
                             val classBooking = BookingClass(
@@ -164,6 +166,13 @@ class BookingClassFragment : Fragment() {
         queue!!.add(stringRequest)
     }
 
+    private fun convertTimeTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
+    }
+
     private fun displayBookingClass(data: Array<BookingClass>) {
         adapter = MemberBookingClassAdapter(data, object : MemberBookingClassAdapter.OnBookingClassClickListener {
             override fun onBookingClassCancel(position: Int) {
@@ -173,7 +182,7 @@ class BookingClassFragment : Fragment() {
 //
 //            }
         })
-        binding.rvClassBooking.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvClassBooking.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvClassBooking.adapter = adapter
         adapter.notifyDataSetChanged()
     }
