@@ -67,6 +67,7 @@ class MoPresensiInstrukturAdapter (
                     // Hide the status card view
                     binding.statusSchedule.visibility = View.GONE
                 }else{
+                    binding.statusSchedule.visibility = View.VISIBLE
                     binding.tvStatusSchedule.text = presensiInstruktur.status
                 }
 
@@ -74,6 +75,7 @@ class MoPresensiInstrukturAdapter (
                     // Hide the status card view
                     binding.statusClassRunning.visibility = View.GONE
                 }else{
+                    binding.statusClassRunning.visibility = View.VISIBLE
                     binding.tvStatusClassRunning.text = presensiInstruktur.statusClassRunning
                 }
 

@@ -57,6 +57,7 @@ class InstrukturPresensiMemberAdapter (
                     // Hide the status card view
                     binding.statusClassRunning.visibility = View.GONE
                 }else{
+                    binding.statusClassRunning.visibility = View.VISIBLE
                     binding.tvStatusClassRunning.text = presensiMember.statusClassRunning
                 }
 

@@ -45,6 +45,7 @@ class ClassRunningAdapter (
                     // Hide the status card view
                     statusSchedule.visibility = View.GONE
                 }else{
+                    statusSchedule.visibility = View.VISIBLE
                     binding.tvStatusSchedule.text = classRunning.status
                 }
             }
