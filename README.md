@@ -4,7 +4,7 @@ An Android APP using Kotlin For MATAKULIAH P3L UAJY
 
 APP Photo
 ![Screenshot_20230609_162912](https://github.com/captbay/Gofit_p3l_android/assets/75372489/4f91db22-da28-403b-9447-50f3d023eb33 | width=100px height=100px)
-<img src="[https://your-image-url.type](https://github.com/captbay/Gofit_p3l_android/assets/75372489/4f91db22-da28-403b-9447-50f3d023eb33.png)" width="100" height="100">
+<img src="https://github.com/captbay/Gofit_p3l_android/assets/75372489/4f91db22-da28-403b-9447-50f3d023eb33.png" width="100" height="100">
 ![Screenshot_20230609_162917](https://github.com/captbay/Gofit_p3l_android/assets/75372489/cbaeb4b7-a63e-40cd-970c-5bb65f3f0c4d)
 ![Screenshot_20230609_162925](https://github.com/captbay/Gofit_p3l_android/assets/75372489/87de88d2-a4f4-4fae-8206-450a2f3dae8a)
 ![Screenshot_20230614_114956](https://github.com/captbay/Gofit_p3l_android/assets/75372489/2a05150e-1041-4991-bce4-c83fb213e02f)
